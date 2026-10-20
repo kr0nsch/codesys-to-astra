@@ -34,3 +34,6 @@
 *.gz    binary
 *.exe   binary
 *.dll   binary
+
+# Обратные экспорты IDE — фикстуры как есть (CODESYS и Astra.IDE пишут CRLF и BOM)
+corpus/lang-matrix/export.*.xml -text
