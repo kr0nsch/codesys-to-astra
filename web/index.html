@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>codesys-to-astra — перенос CODESYS в Astra.IDE в браузере</title>
+    <meta name="description" content="Перенос PLCopen XML проекта CODESYS 3.5 (ОВЕН ПЛК2xx) в Astra.IDE 1.7 для ПЛК REGUL: отчёт, замены библиотек, каналы ввода-вывода, приоритеты задач. Файл не покидает браузер." />
+  </head>
+  <body>
+    <header>
+      <h1>codesys-to-astra <span>→ REGUL</span></h1>
+      <p class="lead">PLCopen XML проекта CODESYS 3.5 (ОВЕН ПЛК2xx и другие) → файл импорта Astra.IDE 1.7.2.2, отчёт с
+        исходами по правилам, замены библиотек ОВЕН, карта каналов Mx210 → Modbus REGUL, приоритеты задач. Тот же Python-код,
+        что в CLI, работает здесь через Pyodide.</p>
+    </header>
+    <main>
+      <section class="panel">
+        <div id="examples" aria-label="Примеры"></div>
+        <div id="drop">Перетащите сюда PLCopen XML или выберите файл: <input id="file" type="file" accept=".xml" /> — файл не покидает браузер.</div>
+        <p><span id="source">—</span> · <span id="status">Pyodide загружается…</span></p>
+      </section>
+      <section class="panel">
+        <nav class="tabs" role="tablist">
+          <button data-tab="summary" role="tab">Сводка</button>
+          <button data-tab="langs" role="tab">Языки</button>
+          <button data-tab="libs" role="tab">Библиотеки</button>
+          <button data-tab="io" role="tab">Ввод-вывод</button>
+          <button data-tab="tasks" role="tab">Задачи</button>
+          <button data-tab="sp18" role="tab">SP18+</button>
+          <button data-tab="code" role="tab">Код</button>
+          <button data-tab="zip" role="tab">Скачать zip</button>
+        </nav>
+        <div id="tab-summary" class="tab"></div>
+        <div id="tab-langs" class="tab" hidden></div>
+        <div id="tab-libs" class="tab" hidden></div>
+        <div id="tab-io" class="tab" hidden></div>
+        <div id="tab-tasks" class="tab" hidden></div>
+        <div id="tab-sp18" class="tab" hidden></div>
+        <div id="tab-code" class="tab" hidden></div>
+        <div id="tab-zip" class="tab" hidden></div>
+      </section>
+    </main>
+    <footer>
+      Неофициальный инструмент. Проект не связан с компаниями ОВЕН, Прософт-Системы, РегЛаб и CODESYS GmbH; названия
+      продуктов — товарные знаки их владельцев. Компиляция в Astra.IDE не означает работы на контроллере REGUL.
+      Исходный код: github.com/kr0nsch/codesys-to-astra (MIT).
+    </footer>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "cds2astra-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Веб-демо cds2astra: перенос PLCopen XML CODESYS в Astra.IDE прямо в браузере (Pyodide)",
+  "scripts": {
+    "dev": "vite --port 52201 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build && node scripts/copy-pyodide.mjs",
+    "preview": "vite preview --port 52202 --strictPort"
+  },
+  "devDependencies": {
+    "pyodide": "314.0.7",
+    "typescript": "7.0.2",
+    "vite": "8.3.4"
+  }
+}
