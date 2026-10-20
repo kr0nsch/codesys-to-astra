@@ -101,8 +101,8 @@ kns-port-domestic (`docs/ASSUMPTIONS.md` A11).
 ## Воспроизводимость
 
 - Pyodide (Chromium) и CPython 3.12 на Windows дают один SHA-256 zip котельной: `fec7ae6d43f2d4e5…`.
-- CI сравнивает zip котельной и SP18 между ubuntu и windows (джоб `repro`); результат — после первого
-  прогона CI на GitHub.
+- CI сравнивает zip котельной и SP18 между ubuntu и windows (джоб `repro`): первый зелёный прогон на GitHub
+  Actions — 20.10.2026, SHA-256 совпадают.
 
 ## Как повторить
 
