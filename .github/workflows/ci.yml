@@ -1,0 +1,179 @@
+# CI cds2astra: проверки без CODESYS и Astra.IDE (оракулы IDE — локально, docs/TEST_REPORT.md).
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # iec_checker v0.4 и RuSTy v1.0.6 — те же версии, что во всём семействе (00-INDEX §4.8)
+  IEC_CHECKER_VERSION: v0.4
+  IEC_CHECKER_SIZE: "10816408"
+  IEC_CHECKER_SHA256: e7bea2a594ad47d089650944c9095251a7db5b44c953f726390ca0023675fa40
+  RUSTY_VERSION: v1.0.6
+  RUSTY_PLC_SHA256: cee05d9871b7a4dea66ad0e1a3a94cce858d28967c0bdecd16a821e3c621a6bf
+  RUSTY_STDLIB_SHA256: 17086c67d46cdba0a6acf8c3c8e3b594804053df3913dab2756ef555cb826129
+  SOURCE_DATE_EPOCH: "0"
+
+jobs:
+  checks:
+    name: Python ${{ matrix.python }} · ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.12", "3.14"]
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Зависимости
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Загрузка iec_checker ${{ env.IEC_CHECKER_VERSION }}
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          dir="$RUNNER_TEMP/iec-checker"
+          mkdir -p "$dir"
+          curl -fsSL --retry 3 -o "$dir/iec_checker" \
+            "https://github.com/iec-checker/iec-checker/releases/download/$IEC_CHECKER_VERSION/iec_checker_Linux_x86_64"
+          test "$(stat -c %s "$dir/iec_checker")" = "$IEC_CHECKER_SIZE"
+          echo "$IEC_CHECKER_SHA256  $dir/iec_checker" | sha256sum -c -
+          chmod +x "$dir/iec_checker"
+          echo "IEC_CHECKER=$dir/iec_checker" >> "$GITHUB_ENV"
+
+      - name: ruff check
+        if: ${{ !cancelled() }}
+        run: python -m ruff check .
+
+      - name: ruff format --check
+        if: ${{ !cancelled() }}
+        run: python -m ruff format --check .
+
+      - name: mypy --strict
+        if: ${{ !cancelled() }}
+        run: python -m mypy
+
+      - name: pytest с порогом покрытия
+        if: ${{ !cancelled() }}
+        run: |
+          python -m pytest --cov=cds2astra --cov-branch --cov-report=json:build/coverage.json
+          python tools/check/coverage_gate.py build/coverage.json
+
+      - name: ST — сборка, линтер, генерируемые файлы
+        if: ${{ !cancelled() }}
+        run: |
+          python tools/assemble.py --tests
+          python tools/check/st_lint.py --strict
+          python tools/corpus/build_lang_matrix.py --check
+          python tools/corpus/owen_overlay.py --check
+          python tools/corpus/make_rule_corpus.py --check
+          python tools/gen_docs.py --check
+
+      - name: Статанализ (iec_checker)
+        if: ${{ !cancelled() && runner.os == 'Linux' }}
+        run: python tools/check/run_iec_checker.py --tests
+
+      - name: Перенос корпуса (CLI)
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          python -m cds2astra migrate corpus/boiler-plc210/export.xml --target-spec corpus/boiler-plc210/target.toml \
+            --out build/boiler --zip build/repro/boiler.zip --fail-on never
+          python -m cds2astra migrate corpus/lang-matrix/source.handmade.xml --out build/lang-matrix --fail-on never
+          python -m cds2astra migrate corpus/s7-chain --out build/s7-chain --fail-on never
+          python -m cds2astra migrate corpus/sp18-speedtests/codesys_code_execution_speedTests.xml --out build/sp18 \
+            --zip build/repro/sp18.zip --fail-on never
+
+      - name: Артефакт воспроизводимости
+        if: ${{ matrix.python == '3.12' }}
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: repro-${{ matrix.os }}
+          path: build/repro/
+          retention-days: 7
+
+  repro:
+    name: Воспроизводимость zip (ubuntu = windows)
+    needs: checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v7.0.0
+        with:
+          path: repro
+      - name: SHA-256 совпадают
+        run: |
+          cd repro
+          sha256sum repro-ubuntu-latest/*.zip | sed 's#repro-ubuntu-latest/##' > u.txt
+          sha256sum repro-windows-latest/*.zip | sed 's#repro-windows-latest/##' > w.txt
+          cat u.txt
+          diff u.txt w.txt
+
+  rusty:
+    name: RuSTy plc --check (необязательно)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Загрузка RuSTy ${{ env.RUSTY_VERSION }}
+        run: |
+          dir="$RUNNER_TEMP/rusty"
+          base="https://github.com/PLC-lang/rusty/releases/download/$RUSTY_VERSION"
+          mkdir -p "$dir"
+          curl -fsSL --retry 3 -o "$dir/plc" "$base/plc-linux-x86_64"
+          curl -fsSL --retry 3 -o "$dir/stdlib.tar.gz" "$base/stdlib-${RUSTY_VERSION#v}.tar.gz"
+          echo "$RUSTY_PLC_SHA256  $dir/plc" | sha256sum -c -
+          echo "$RUSTY_STDLIB_SHA256  $dir/stdlib.tar.gz" | sha256sum -c -
+          chmod +x "$dir/plc"
+          tar -xzf "$dir/stdlib.tar.gz" -C "$dir"
+          echo "RUSTY_PLC=$dir/plc" >> "$GITHUB_ENV"
+          echo "RUSTY_STDLIB_INCLUDE=$dir/stdlib/include" >> "$GITHUB_ENV"
+      - name: RuSTy — AstraCompat
+        run: python tools/check/run_rusty.py
+
+  web:
+    name: Веб-демо (Vite + Pyodide), e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Пакет и примеры для демо
+        run: python tools/web_bundle.py
+      - name: Сборка
+        working-directory: web
+        run: |
+          npm ci
+          npm run build
+      - name: e2e (Playwright, Chromium)
+        run: |
+          python -m pip install playwright==1.64.0
+          python -m playwright install --with-deps chromium
+          python tools/e2e_smoke.py
