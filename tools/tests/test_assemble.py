@@ -526,7 +526,7 @@ def test_written_files_are_utf8_lf(tmp_path: Path) -> None:
 @pytest.mark.parametrize(
     ("source", "expected"),
     [
-        # TIME() и LTIME() — вызов функции-заглушки (литерал длительности дал бы ZeroDivision и PLCOPEN-CP28)
+        # TIME() и LTIME() — вызов заглушки (литерал длительности дал бы ZeroDivision и PLCOPEN-CP28)
         ("t := TIME();", "t := CDS__TIME();"),
         ("lt := LTIME() - ltMark;", "lt := CDS__LTIME() - ltMark;"),
         ("x := ltime ( ) > lt;", "x := CDS__LTIME() > lt;"),
