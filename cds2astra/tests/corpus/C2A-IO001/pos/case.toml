@@ -1,0 +1,3 @@
+rule = "C2A-IO001"
+kind = "pos"
+outcomes = ["check"]

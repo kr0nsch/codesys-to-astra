@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP17 Patch 3" creationDateTime="2026-10-20T00:00:00" />
+  <contentHeader name="case"><coordinateInfo><fbd><scaling x="1" y="1" /></fbd><ld><scaling x="1" y="1" /></ld><sfc><scaling x="1" y="1" /></sfc></coordinateInfo></contentHeader>
+  <types><dataTypes /><pous /></types>
+  <instances><configurations><configuration name="Device">
+    <resource name="Application">
+      <task name="FreeTask" interval="PT0.02S" priority="5"><pouInstance name="PRG_A" typeName="" /><addData><data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation"><TaskSettings KindOfTask="Freewheeling" Interval="t#0ms" IntervalUnit="ms" /></data></addData></task>
+      <task name="FastTask" interval="PT0.02S" priority="6"><pouInstance name="PRG_A" typeName="" /><addData><data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation"><TaskSettings KindOfTask="Cyclic" Interval="500" IntervalUnit="us" /></data></addData></task>
+    </resource>
+    <addData></addData>
+  </configuration></configurations></instances>
+</project>

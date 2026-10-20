@@ -1,0 +1,3 @@
+rule = "C2A-TASK001"
+kind = "pos"
+outcomes = ["check"]

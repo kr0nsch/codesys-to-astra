@@ -1,0 +1,4 @@
+rule = "C2A-LANG-OOP"
+kind = "pos"
+outcomes = ["check"]
+profile_unknown = ["oop.extends"]

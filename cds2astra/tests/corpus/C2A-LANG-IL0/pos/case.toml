@@ -1,0 +1,3 @@
+rule = "C2A-LANG-IL0"
+kind = "pos"
+outcomes = ["todo"]

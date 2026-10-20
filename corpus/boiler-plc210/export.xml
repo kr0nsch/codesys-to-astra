@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP17 Patch 3" creationDateTime="2026-10-20T00:00:00" />
+  <contentHeader name="boiler-plc210.project" modificationDateTime="2026-10-20T00:00:00">
+    <Comment>Синтетический экспорт: логика — corpus/boiler-plc210/src, слой ОВЕН — tools/corpus/owen_overlay.py (проба P7 не выполнялась)</Comment>
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations>
+      <configuration name="Device">
+        <resource name="Application">
+          <task name="FastTask" interval="PT0.05S" priority="0">
+            <pouInstance name="PRG_Fast" typeName="" />
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+                <TaskSettings KindOfTask="Cyclic" Interval="t#10ms" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                  <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+                </TaskSettings>
+              </data>
+            </addData>
+          </task>
+          <task name="MainTask" interval="PT0.05S" priority="1">
+            <pouInstance name="PRG_Main" typeName="" />
+            <pouInstance name="PRG_Backup" typeName="" />
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+                <TaskSettings KindOfTask="Cyclic" Interval="t#50ms" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                  <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+                </TaskSettings>
+              </data>
+            </addData>
+          </task>
+          <task name="SlowTask" interval="PT0.05S" priority="15">
+            <pouInstance name="PRG_Slow" typeName="" />
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+                <TaskSettings KindOfTask="Cyclic" Interval="t#1000ms" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                  <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+                </TaskSettings>
+              </data>
+            </addData>
+          </task>
+          <globalVars name="GVL_Clock">
+        <variable name="dtNow">
+          <type>
+            <DT />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Date And Time</xhtml>
+          </documentation>
+        </variable>
+        <variable name="sDateText">
+          <type>
+            <string length="80" />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Format date</xhtml>
+          </documentation>
+        </variable>
+        <variable name="sTimeText">
+          <type>
+            <string length="80" />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Format time</xhtml>
+          </documentation>
+        </variable>
+        <variable name="usiHour">
+          <type>
+            <USINT />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Hour</xhtml>
+          </documentation>
+        </variable>
+        <variable name="usiWeek">
+          <type>
+            <USINT />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Week of year</xhtml>
+          </documentation>
+        </variable>
+        <variable name="udiLastExc">
+          <type>
+            <UDINT />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Watchdog: код последнего исключения</xhtml>
+          </documentation>
+        </variable>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: время ПЛК из каналов узла OwenRTC и данные узла Watchdog.
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+VAR_GLOBAL
+    dtNow : DT;             // Date And Time
+    sDateText : STRING(80); // Format date
+    sTimeText : STRING(80); // Format time
+    usiHour : USINT;        // Hour
+    usiWeek : USINT;        // Week of year
+    udiLastExc : UDINT;     // Watchdog: код последнего исключения
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>353d3227-0c25-5158-bdef-d6f777e24190</ObjectId>
+          </data>
+        </addData>
+        <documentation>
+          <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: время ПЛК из каналов узла OwenRTC и данные узла Watchdog.
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+        </documentation>
+      </globalVars>
+          <globalVars name="GVL_Hmi">
+        <variable name="sStatus">
+          <type>
+            <string length="255" />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> строка состояния</xhtml>
+          </documentation>
+        </variable>
+        <variable name="sCode">
+          <type>
+            <string length="8" />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> код состояния (hex)</xhtml>
+          </documentation>
+        </variable>
+        <variable name="eState">
+          <type>
+            <derived name="E_BoilerState" />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> состояние котла К1</xhtml>
+          </documentation>
+        </variable>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: строки и коды для панели оператора.
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+VAR_GLOBAL
+    sStatus : STRING(255);  // строка состояния
+    sCode : STRING(8);      // код состояния (hex)
+    eState : E_BoilerState; // состояние котла К1
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>dcfbc636-db6c-59fd-891a-87c7f06c90a7</ObjectId>
+          </data>
+        </addData>
+        <documentation>
+          <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: строки и коды для панели оператора.
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+        </documentation>
+      </globalVars>
+          <globalVars name="GVL_Hw">
+        <variable name="xBurner1Fault" address="%IX0.0">
+          <type>
+            <BOOL />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> авария горелки К1</xhtml>
+          </documentation>
+        </variable>
+        <variable name="xBurner2Fault" address="%IX0.1">
+          <type>
+            <BOOL />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> авария горелки К2</xhtml>
+          </documentation>
+        </variable>
+        <variable name="xPumpRun" address="%QX0.0">
+          <type>
+            <BOOL />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> пуск сетевого насоса Н1</xhtml>
+          </documentation>
+        </variable>
+        <variable name="xAlarmHorn" address="%QX0.1">
+          <type>
+            <BOOL />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> сирена</xhtml>
+          </documentation>
+        </variable>
+        <variable name="wHmiStatus" address="%MW10">
+          <type>
+            <WORD />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> слово состояния для панели</xhtml>
+          </documentation>
+        </variable>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: встроенный ввод-вывод ПЛК210 по AT-адресам (так делать ОВЕН не рекомендует — Targets v3.4, разд. 1;
+//             вход нарочно с AT, чтобы показать C2A-IO001).
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+VAR_GLOBAL
+    xBurner1Fault AT %IX0.0 : BOOL;     // авария горелки К1
+    xBurner2Fault AT %IX0.1 : BOOL;     // авария горелки К2
+    xPumpRun AT %QX0.0 : BOOL;          // пуск сетевого насоса Н1
+    xAlarmHorn AT %QX0.1 : BOOL;        // сирена
+    wHmiStatus AT %MW10 : WORD;         // слово состояния для панели
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>1d9b55ac-b767-5514-827b-6869a654fa75</ObjectId>
+          </data>
+        </addData>
+        <documentation>
+          <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: встроенный ввод-вывод ПЛК210 по AT-адресам (так делать ОВЕН не рекомендует — Targets v3.4, разд. 1;
+             вход нарочно с AT, чтобы показать C2A-IO001).
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+        </documentation>
+      </globalVars>
+          <globalVars name="GVL_Mx">
+        <variable name="rTSupply_C">
+          <type>
+            <REAL />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> температура подачи, °C (МВ210-101, вход 1)</xhtml>
+          </documentation>
+        </variable>
+        <variable name="rTReturn_C">
+          <type>
+            <REAL />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> температура обратки, °C (вход 2)</xhtml>
+          </documentation>
+        </variable>
+        <variable name="rTOutdoor_C">
+          <type>
+            <REAL />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> температура наружного воздуха, °C (вход 3)</xhtml>
+          </documentation>
+        </variable>
+        <variable name="iTSupplyRaw">
+          <type>
+            <INT />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> подача, целое (вход 1, integer)</xhtml>
+          </documentation>
+        </variable>
+        <variable name="wDoMask">
+          <type>
+            <WORD />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> выходы МУ210-402 (битовая маска)</xhtml>
+          </documentation>
+        </variable>
+        <variable name="wMeterStatus">
+          <type>
+            <WORD />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> счётчик энергии на Modbus 3S (канал FC 23)</xhtml>
+          </documentation>
+        </variable>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: значения модулей Mx210 (привязки к каналам шаблонов МВ210-101 и МУ210-402 в дереве устройств).
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+VAR_GLOBAL
+    rTSupply_C : REAL;      // температура подачи, °C (МВ210-101, вход 1)
+    rTReturn_C : REAL;      // температура обратки, °C (вход 2)
+    rTOutdoor_C : REAL;     // температура наружного воздуха, °C (вход 3)
+    iTSupplyRaw : INT;      // подача, целое (вход 1, integer)
+    wDoMask : WORD;         // выходы МУ210-402 (битовая маска)
+    wMeterStatus : WORD;    // счётчик энергии на Modbus 3S (канал FC 23)
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>316d2ed3-bd89-5d1c-85c3-ba86fbe95736</ObjectId>
+          </data>
+        </addData>
+        <documentation>
+          <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: значения модулей Mx210 (привязки к каналам шаблонов МВ210-101 и МУ210-402 в дереве устройств).
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+        </documentation>
+      </globalVars>
+          <globalVars name="GVL_Persist" retain="true">
+        <variable name="rSpBase_C">
+          <type>
+            <REAL />
+          </type>
+          <initialValue>
+            <simpleValue value="70.0" />
+          </initialValue>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> базовая уставка подачи, °C</xhtml>
+          </documentation>
+        </variable>
+        <variable name="udiRunTime_s">
+          <type>
+            <UDINT />
+          </type>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> наработка насоса, с</xhtml>
+          </documentation>
+        </variable>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: сохраняемые уставки и наработка.
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+VAR_GLOBAL RETAIN
+    rSpBase_C : REAL := 70.0;   // базовая уставка подачи, °C
+    udiRunTime_s : UDINT;       // наработка насоса, с
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>c03e4377-b111-5597-b272-b22dffb23d05</ObjectId>
+          </data>
+        </addData>
+        <documentation>
+          <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: сохраняемые уставки и наработка.
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+        </documentation>
+      </globalVars>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="E_BoilerState">
+        <baseType>
+          <enum>
+            <values>
+              <value name="Off" value="0" />
+              <value name="Run" value="1" />
+              <value name="Fault" value="2" />
+            </values>
+            <baseType>
+              <INT />
+            </baseType>
+          </enum>
+        </baseType>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+            <Attributes>
+              <Attribute Name="qualified_only" Value="" />
+            </Attributes>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: состояние котла (вымышленная котельная №3, ПЛК210 — синтетический слой ОВЕН).
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+{attribute 'qualified_only'}
+TYPE E_BoilerState :
+(
+    Off := 0,       // остановлен
+    Run := 1,       // работа
+    Fault := 2      // авария горелки
+) INT;
+END_TYPE
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>ea98ad99-1258-54fc-b4fb-5f61651e2fd8</ObjectId>
+          </data>
+        </addData>
+        <documentation>
+          <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: состояние котла (вымышленная котельная №3, ПЛК210 — синтетический слой ОВЕН).
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+        </documentation>
+      </dataType>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="F_HeatingCurve" pouType="function">
+        <interface>
+          <returnType>
+            <REAL />
+          </returnType>
+          <inputVars>
+            <variable name="rTOutdoor_C">
+              <type>
+                <REAL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> наружная температура, °C</xhtml>
+              </documentation>
+            </variable>
+            <variable name="rSpBase_C">
+              <type>
+                <REAL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> уставка при 0 °C</xhtml>
+              </documentation>
+            </variable>
+          </inputVars>
+          <localVars constant="true">
+            <variable name="SLOPE">
+              <type>
+                <REAL />
+              </type>
+              <initialValue>
+                <simpleValue value="-1.2" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> наклон графика, °C/°C</xhtml>
+              </documentation>
+            </variable>
+            <variable name="SP_MIN">
+              <type>
+                <REAL />
+              </type>
+              <initialValue>
+                <simpleValue value="35.0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> минимум подачи, °C</xhtml>
+              </documentation>
+            </variable>
+            <variable name="SP_MAX">
+              <type>
+                <REAL />
+              </type>
+              <initialValue>
+                <simpleValue value="95.0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> максимум подачи, °C</xhtml>
+              </documentation>
+            </variable>
+          </localVars>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: отопительный график: уставка подачи по наружной температуре (линейно, с ограничением).
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+          </documentation>
+        </interface>
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">F_HeatingCurve := LIMIT(SP_MIN, rSpBase_C + SLOPE * rTOutdoor_C, SP_MAX);
+</xhtml>
+          </ST>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: отопительный график: уставка подачи по наружной температуре (линейно, с ограничением).
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+FUNCTION F_HeatingCurve : REAL
+VAR_INPUT
+    rTOutdoor_C : REAL;     // наружная температура, °C
+    rSpBase_C : REAL;       // уставка при 0 °C
+END_VAR
+VAR CONSTANT
+    SLOPE : REAL := -1.2;   // наклон графика, °C/°C
+    SP_MIN : REAL := 35.0;  // минимум подачи, °C
+    SP_MAX : REAL := 95.0;  // максимум подачи, °C
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>4e7d0818-ef5e-5bbc-9955-2ed5ae18979a</ObjectId>
+          </data>
+        </addData>
+      </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="PRG_Backup" pouType="program">
+        <interface>
+          <localVars>
+            <variable name="fbHeater">
+              <type>
+                <derived name="OPR.ON_OFF_HIST_REG" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> двухпозиционный регулятор</xhtml>
+              </documentation>
+            </variable>
+            <variable name="xHeaterOn">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> включить ТЭН</xhtml>
+              </documentation>
+            </variable>
+          </localVars>
+          <localVars constant="true">
+            <variable name="SP_BACKUP_C">
+              <type>
+                <REAL />
+              </type>
+              <initialValue>
+                <simpleValue value="45.0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> уставка резерва, °C</xhtml>
+              </documentation>
+            </variable>
+            <variable name="HYST_C">
+              <type>
+                <REAL />
+              </type>
+              <initialValue>
+                <simpleValue value="2.0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> гистерезис, °C</xhtml>
+              </documentation>
+            </variable>
+          </localVars>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: резервный электрокотёл — двухпозиционный регулятор ON_OFF_HIST_REG (CmpOwenPidRegs).
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+          </documentation>
+        </interface>
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">fbHeater(PV := GVL_Mx.rTSupply_C, SP := SP_BACKUP_C, HYST := HYST_C, DB := 0.0);
+xHeaterOn := fbHeater.HEATER AND GVL_Hmi.eState = E_BoilerState.Fault;
+</xhtml>
+          </ST>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: резервный электрокотёл — двухпозиционный регулятор ON_OFF_HIST_REG (CmpOwenPidRegs).
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+PROGRAM PRG_Backup
+VAR
+    fbHeater : OPR.ON_OFF_HIST_REG; // двухпозиционный регулятор
+    xHeaterOn : BOOL;               // включить ТЭН
+END_VAR
+VAR CONSTANT
+    SP_BACKUP_C : REAL := 45.0;     // уставка резерва, °C
+    HYST_C : REAL := 2.0;           // гистерезис, °C
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>f03c7c90-8b71-5a10-9a41-e0117a19d4f5</ObjectId>
+          </data>
+        </addData>
+      </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="PRG_Fast" pouType="program">
+        <interface>
+          <localVars />
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: быстрые блокировки (задача FastTask, приоритет 0 у ОВЕН): авария горелки -&gt; останов, сирена.
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+          </documentation>
+        </interface>
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">IF GVL_Hw.xBurner1Fault OR GVL_Hw.xBurner2Fault THEN
+    GVL_Hmi.eState := E_BoilerState.Fault;
+    GVL_Hw.xAlarmHorn := TRUE;
+ELSE
+    GVL_Hw.xAlarmHorn := FALSE;
+END_IF
+</xhtml>
+          </ST>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: быстрые блокировки (задача FastTask, приоритет 0 у ОВЕН): авария горелки -&gt; останов, сирена.
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+PROGRAM PRG_Fast
+VAR
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>b6774dae-9760-5d5c-be6b-fb7bbb25a0ac</ObjectId>
+          </data>
+        </addData>
+      </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="PRG_Main" pouType="program">
+        <interface>
+          <localVars>
+            <variable name="fbPid">
+              <type>
+                <derived name="OPR.STD_PID" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> ПИД подачи</xhtml>
+              </documentation>
+            </variable>
+            <variable name="rSp_C">
+              <type>
+                <REAL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> уставка подачи, °C</xhtml>
+              </documentation>
+            </variable>
+            <variable name="rValve">
+              <type>
+                <REAL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> выход ПИД 0..1</xhtml>
+              </documentation>
+            </variable>
+            <variable name="fbRunTimer">
+              <type>
+                <derived name="TON" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> секундный такт наработки</xhtml>
+              </documentation>
+            </variable>
+          </localVars>
+          <localVars constant="true">
+            <variable name="XP_C">
+              <type>
+                <REAL />
+              </type>
+              <initialValue>
+                <simpleValue value="20.0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> полоса пропорциональности, °C</xhtml>
+              </documentation>
+            </variable>
+            <variable name="TI_S">
+              <type>
+                <REAL />
+              </type>
+              <initialValue>
+                <simpleValue value="120.0" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> постоянная интегрирования, с</xhtml>
+              </documentation>
+            </variable>
+            <variable name="T_SECOND">
+              <type>
+                <TIME />
+              </type>
+              <initialValue>
+                <simpleValue value="T#1S" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> такт счёта наработки</xhtml>
+              </documentation>
+            </variable>
+            <variable name="DIGITS">
+              <type>
+                <USINT />
+              </type>
+              <initialValue>
+                <simpleValue value="1" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> знаков после запятой</xhtml>
+              </documentation>
+            </variable>
+          </localVars>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: регулирование подачи (ПИД CmpOwenPidRegs), насос, строки для панели (OwenStringUtils).
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+          </documentation>
+        </interface>
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">rSp_C := F_HeatingCurve(GVL_Mx.rTOutdoor_C, GVL_Persist.rSpBase_C);
+fbPid(PV := GVL_Mx.rTSupply_C, SP := rSp_C, XP := XP_C, TI := TI_S, TD := 0.0, PMIN := 0.0, PMAX := 1.0,
+      Y_MAN_SET := FALSE, Y_MANUAL := 0.0);
+rValve := fbPid.Y;
+IF GVL_Hmi.eState &lt;&gt; E_BoilerState.Fault THEN
+    GVL_Hmi.eState := E_BoilerState.Run;
+END_IF
+GVL_Hw.xPumpRun := GVL_Hmi.eState = E_BoilerState.Run;
+GVL_Mx.wDoMask := SEL(GVL_Hw.xPumpRun, 16#0000, 16#0001);
+fbRunTimer(IN := GVL_Hw.xPumpRun AND NOT fbRunTimer.Q, PT := T_SECOND);
+IF fbRunTimer.Q THEN
+    GVL_Persist.udiRunTime_s := GVL_Persist.udiRunTime_s + 1;
+END_IF
+GVL_Hmi.sStatus := OSU.CONCAT4('T=', OSU.REAL_TO_STRING_FORMAT(GVL_Mx.rTSupply_C, DIGITS, OSU.DECIMAL_SEPARATOR.COMMA),
+                               ' C, SP=', OSU.REAL_TO_STRING_FORMAT(rSp_C, DIGITS, OSU.DECIMAL_SEPARATOR.COMMA));
+GVL_Hmi.sCode := OSU.WORD_TO_HEX_STR(wInput := GVL_Hw.wHmiStatus, xUpperCase := TRUE, sPrefix := '0x');
+</xhtml>
+          </ST>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: регулирование подачи (ПИД CmpOwenPidRegs), насос, строки для панели (OwenStringUtils).
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+PROGRAM PRG_Main
+VAR
+    fbPid : OPR.STD_PID;    // ПИД подачи
+    rSp_C : REAL;           // уставка подачи, °C
+    rValve : REAL;          // выход ПИД 0..1
+    fbRunTimer : TON;       // секундный такт наработки
+END_VAR
+VAR CONSTANT
+    XP_C : REAL := 20.0;    // полоса пропорциональности, °C
+    TI_S : REAL := 120.0;   // постоянная интегрирования, с
+    T_SECOND : TIME := T#1S;    // такт счёта наработки
+    DIGITS : USINT := 1;    // знаков после запятой
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>a0f0e83d-456d-57e3-8372-b37b3169622d</ObjectId>
+          </data>
+        </addData>
+      </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="PRG_Slow" pouType="program">
+        <interface>
+          <localVars />
+          <localVars constant="true">
+            <variable name="BIT_FAULT">
+              <type>
+                <WORD />
+              </type>
+              <initialValue>
+                <simpleValue value="16#0002" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> бит «авария» в слове состояния</xhtml>
+              </documentation>
+            </variable>
+            <variable name="BIT_RUN">
+              <type>
+                <WORD />
+              </type>
+              <initialValue>
+                <simpleValue value="16#0001" />
+              </initialValue>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> бит «работа»</xhtml>
+              </documentation>
+            </variable>
+          </localVars>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> Назначение: медленная задача (приоритет 15 у ОВЕН): слово состояния панели.
+ Автор:      kr0nsch
+ Версия:     0.1.0
+ Документ:   corpus/boiler-plc210/README.md</xhtml>
+          </documentation>
+        </interface>
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">GVL_Hw.wHmiStatus := 0;
+IF GVL_Hmi.eState = E_BoilerState.Run THEN
+    GVL_Hw.wHmiStatus := GVL_Hw.wHmiStatus OR BIT_RUN;
+END_IF
+IF GVL_Hmi.eState = E_BoilerState.Fault THEN
+    GVL_Hw.wHmiStatus := GVL_Hw.wHmiStatus OR BIT_FAULT;
+END_IF
+</xhtml>
+          </ST>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">// Назначение: медленная задача (приоритет 15 у ОВЕН): слово состояния панели.
+// Автор:      kr0nsch
+// Версия:     0.1.0
+// Документ:   corpus/boiler-plc210/README.md
+PROGRAM PRG_Slow
+VAR
+END_VAR
+VAR CONSTANT
+    BIT_FAULT : WORD := 16#0002;    // бит «авария» в слове состояния
+    BIT_RUN : WORD := 16#0001;      // бит «работа»
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>6683f276-7c04-5261-9bc9-8a5e4d528aaf</ObjectId>
+          </data>
+        </addData>
+      </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+              <Libraries>
+                <Library Name="#Standard" Namespace="Standard" DefaultResolution="Standard, 3.5.9.0 (System)" />
+                <Library Name="OwenStringUtils, 3.5.4.9 (ОВЕН)" Namespace="OSU" />
+                <Library Name="CmpOwenPidRegs, 3.5.14.33 (ОВЕН)" Namespace="OPR" />
+                <Library Name="OwenTypes, 3.5.17.5 (ОВЕН)" Namespace="OwenTypes" />
+                <Library Name="#IoStandard" Namespace="IoStandard" DefaultResolution="IoStandard, 3.5.17.0 (System)" />
+              </Libraries>
+            </data>
+          </addData>
+        </resource>
+        <addData>
+        <data name="Device" handleUnknown="discard">
+          <Device xmlns="">
+            <DeviceType>
+              <DeviceIdentification>
+                <Type>0</Type>
+                <Id>SYN PLC210_11</Id>
+                <Version>3.5.17.36</Version>
+              </DeviceIdentification>
+              <Connector moduleType="0" interface="Owen.PLC210" connectorId="1">
+                <HostParameterSet>
+                </HostParameterSet>
+              </Connector>
+            </DeviceType>
+          </Device>
+        </data>
+        <data name="configurations" handleUnknown="discard">
+          <configurations>
+              <configuration name="OwenRTC">
+                <addData>
+                  <data name="Device" handleUnknown="discard">
+                    <Device xmlns="">
+                      <DeviceType>
+                        <DeviceIdentification>
+                          <Type>0</Type>
+                          <Id>SYN OwenRTC</Id>
+                          <Version>3.5.17.36</Version>
+                        </DeviceIdentification>
+                        <Connector moduleType="0" interface="Owen.Synthetic" connectorId="1">
+                          <HostParameterSet>
+                          <Parameter ParameterId="1000" type="std:DT">
+                            <Attributes channel="input" />
+                            <Value name="p1000" visiblename="Date And Time" />
+                            <Name>Date And Time</Name>
+                            <Mapping>Application.GVL_Clock.dtNow</Mapping>
+                          </Parameter>
+                          <Parameter ParameterId="1001" type="std:STRING">
+                            <Attributes channel="input" />
+                            <Value name="p1001" visiblename="Format date" />
+                            <Name>Format date</Name>
+                            <Mapping>Application.GVL_Clock.sDateText</Mapping>
+                          </Parameter>
+                          <Parameter ParameterId="1002" type="std:STRING">
+                            <Attributes channel="input" />
+                            <Value name="p1002" visiblename="Format time" />
+                            <Name>Format time</Name>
+                            <Mapping>Application.GVL_Clock.sTimeText</Mapping>
+                          </Parameter>
+                          <Parameter ParameterId="1003" type="std:USINT">
+                            <Attributes channel="input" />
+                            <Value name="p1003" visiblename="Hour" />
+                            <Name>Hour</Name>
+                            <Mapping>Application.GVL_Clock.usiHour</Mapping>
+                          </Parameter>
+                          <Parameter ParameterId="1004" type="std:USINT">
+                            <Attributes channel="input" />
+                            <Value name="p1004" visiblename="Week of year" />
+                            <Name>Week of year</Name>
+                            <Mapping>Application.GVL_Clock.usiWeek</Mapping>
+                          </Parameter>
+                          </HostParameterSet>
+                        </Connector>
+                      </DeviceType>
+                    </Device>
+                  </data>
+                </addData>
+              </configuration>
+              <configuration name="Watchdog">
+                <addData>
+                  <data name="Device" handleUnknown="discard">
+                    <Device xmlns="">
+                      <DeviceType>
+                        <DeviceIdentification>
+                          <Type>0</Type>
+                          <Id>SYN Watchdog</Id>
+                          <Version>3.5.17.36</Version>
+                        </DeviceIdentification>
+                        <Connector moduleType="0" interface="Owen.Synthetic" connectorId="1">
+                          <HostParameterSet>
+                          <Parameter ParameterId="1000" type="std:UDINT">
+                            <Attributes channel="input" />
+                            <Value name="p1000" visiblename="Last Exception Code" />
+                            <Name>Last Exception Code</Name>
+                            <Mapping>Application.GVL_Clock.udiLastExc</Mapping>
+                          </Parameter>
+                          </HostParameterSet>
+                        </Connector>
+                      </DeviceType>
+                    </Device>
+                  </data>
+                </addData>
+              </configuration>
+              <configuration name="Modbus_TCP_Master">
+                <addData>
+                  <data name="Device" handleUnknown="discard">
+                    <Device xmlns="">
+                      <DeviceType>
+                        <DeviceIdentification>
+                          <Type>0</Type>
+                          <Id>SYN Modbus_TCP_Master</Id>
+                          <Version>3.5.17.36</Version>
+                        </DeviceIdentification>
+                        <Connector moduleType="0" interface="Common.ModbusTCPMaster" connectorId="1">
+                          <HostParameterSet>
+                          </HostParameterSet>
+                        </Connector>
+                      </DeviceType>
+                    </Device>
+                  </data>
+                  <data name="configurations" handleUnknown="discard">
+                    <configurations>
+                  <configuration name="MV210_101_K3">
+                    <addData>
+                      <data name="Device" handleUnknown="discard">
+                        <Device xmlns="">
+                          <DeviceType>
+                            <DeviceIdentification>
+                              <Type>0</Type>
+                              <Id>SYN MV210_101_K3</Id>
+                              <Version>3.5.17.36</Version>
+                            </DeviceIdentification>
+                            <Connector moduleType="0" interface="Owen.Mx210Template" connectorId="1">
+                              <HostParameterSet>
+                              <Parameter ParameterId="1000" type="std:REAL">
+                                <Attributes channel="input" />
+                                <Value name="p1000" visiblename="Вход 1/Измеренное значение" />
+                                <Name>Вход 1/Измеренное значение</Name>
+                                <Mapping>Application.GVL_Mx.rTSupply_C</Mapping>
+                              </Parameter>
+                              <Parameter ParameterId="1001" type="std:REAL">
+                                <Attributes channel="input" />
+                                <Value name="p1001" visiblename="Вход 2/Измеренное значение" />
+                                <Name>Вход 2/Измеренное значение</Name>
+                                <Mapping>Application.GVL_Mx.rTReturn_C</Mapping>
+                              </Parameter>
+                              <Parameter ParameterId="1002" type="std:REAL">
+                                <Attributes channel="input" />
+                                <Value name="p1002" visiblename="Вход 3/Измеренное значение" />
+                                <Name>Вход 3/Измеренное значение</Name>
+                                <Mapping>Application.GVL_Mx.rTOutdoor_C</Mapping>
+                              </Parameter>
+                              <Parameter ParameterId="1003" type="std:INT">
+                                <Attributes channel="input" />
+                                <Value name="p1003" visiblename="Вход 1/Значение (integer)" />
+                                <Name>Вход 1/Значение (integer)</Name>
+                                <Mapping>Application.GVL_Mx.iTSupplyRaw</Mapping>
+                              </Parameter>
+                              </HostParameterSet>
+                            </Connector>
+                          </DeviceType>
+                        </Device>
+                      </data>
+                    </addData>
+                  </configuration>
+                  <configuration name="MU210_402_K3">
+                    <addData>
+                      <data name="Device" handleUnknown="discard">
+                        <Device xmlns="">
+                          <DeviceType>
+                            <DeviceIdentification>
+                              <Type>0</Type>
+                              <Id>SYN MU210_402_K3</Id>
+                              <Version>3.5.17.36</Version>
+                            </DeviceIdentification>
+                            <Connector moduleType="0" interface="Owen.Mx210Template" connectorId="1">
+                              <HostParameterSet>
+                              <Parameter ParameterId="1000" type="std:WORD">
+                                <Attributes channel="output" />
+                                <Value name="p1000" visiblename="Выходы/Битовая маска установки" />
+                                <Name>Выходы/Битовая маска установки</Name>
+                                <Mapping>Application.GVL_Mx.wDoMask</Mapping>
+                              </Parameter>
+                              </HostParameterSet>
+                            </Connector>
+                          </DeviceType>
+                        </Device>
+                      </data>
+                    </addData>
+                  </configuration>
+                  <configuration name="ModbusTCP_Slave_Device_Meter">
+                    <addData>
+                      <data name="Device" handleUnknown="discard">
+                        <Device xmlns="">
+                          <DeviceType>
+                            <DeviceIdentification>
+                              <Type>0</Type>
+                              <Id>SYN ModbusTCP_Slave_Device_Meter</Id>
+                              <Version>3.5.17.36</Version>
+                            </DeviceIdentification>
+                            <Connector moduleType="0" interface="Common.ModbusTCPSlave" connectorId="1">
+                              <HostParameterSet>
+                              <Parameter ParameterId="1000" type="std:WORD">
+                                <Attributes channel="input" />
+                                <Value name="p1000" visiblename="Channel 1 Read/Write Multiple Registers (FC 23)" />
+                                <Name>Channel 1 Read/Write Multiple Registers (FC 23)</Name>
+                                <Mapping>Application.GVL_Mx.wMeterStatus</Mapping>
+                              </Parameter>
+                              </HostParameterSet>
+                            </Connector>
+                          </DeviceType>
+                        </Device>
+                      </data>
+                    </addData>
+                  </configuration>
+                    </configurations>
+                  </data>
+                </addData>
+              </configuration>
+          </configurations>
+        </data>
+        </addData>
+      </configuration>
+    </configurations>
+  </instances>
+</project>

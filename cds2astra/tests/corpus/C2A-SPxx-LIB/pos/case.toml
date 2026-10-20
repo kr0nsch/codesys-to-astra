@@ -1,0 +1,3 @@
+rule = "C2A-SPxx-LIB"
+kind = "pos"
+outcomes = ["todo"]

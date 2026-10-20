@@ -1,0 +1,6 @@
+# Цель котельной: REGUL R500 61 (ЦП I типа), шина RegulBus OS, без резервирования.
+cpu = "REGUL R500 61"
+cpu_type = "I"
+bus = "RegulBus OS"
+redundancy = false
+bus_cycle_ms = 1.0

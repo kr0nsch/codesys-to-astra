@@ -1,0 +1,3 @@
+rule = "C2A-SP18-UTF8"
+kind = "pos"
+outcomes = ["auto"]

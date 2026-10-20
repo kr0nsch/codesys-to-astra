@@ -1,0 +1,3 @@
+rule = "C2A-LIB002"
+kind = "pos"
+outcomes = ["info"]

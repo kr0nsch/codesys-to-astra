@@ -1,0 +1,3 @@
+rule = "C2A-PTR001"
+kind = "pos"
+outcomes = ["check"]

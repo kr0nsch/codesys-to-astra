@@ -1,0 +1,3 @@
+rule = "C2A-LIB001"
+kind = "pos"
+outcomes = ["check"]

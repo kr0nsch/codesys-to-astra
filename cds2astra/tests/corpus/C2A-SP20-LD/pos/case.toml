@@ -1,0 +1,3 @@
+rule = "C2A-SP20-LD"
+kind = "pos"
+outcomes = ["todo"]

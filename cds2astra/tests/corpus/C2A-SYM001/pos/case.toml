@@ -1,0 +1,3 @@
+rule = "C2A-SYM001"
+kind = "pos"
+outcomes = ["check"]

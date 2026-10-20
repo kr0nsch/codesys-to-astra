@@ -1,0 +1,1 @@
+sHex := CONCAT('a', 'b');

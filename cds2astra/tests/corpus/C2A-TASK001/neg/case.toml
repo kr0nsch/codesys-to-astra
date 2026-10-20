@@ -1,0 +1,3 @@
+rule = "C2A-TASK001"
+kind = "neg"
+allow_info = true

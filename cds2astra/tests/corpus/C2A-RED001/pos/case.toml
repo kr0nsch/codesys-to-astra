@@ -1,0 +1,5 @@
+rule = "C2A-RED001"
+kind = "pos"
+outcomes = ["todo", "info"]
+[spec]
+redundancy = true

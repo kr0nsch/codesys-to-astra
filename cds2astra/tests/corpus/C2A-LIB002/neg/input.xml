@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP17 Patch 3" creationDateTime="2026-10-20T00:00:00" />
+  <contentHeader name="case"><coordinateInfo><fbd><scaling x="1" y="1" /></fbd><ld><scaling x="1" y="1" /></ld><sfc><scaling x="1" y="1" /></sfc></coordinateInfo></contentHeader>
+  <types><dataTypes /><pous /></types>
+  <instances><configurations><configuration name="Device">
+    <resource name="Application">
+      <addData><data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation"><Libraries><Library Name="#Standard" Namespace="Standard" /></Libraries></data></addData>
+    </resource>
+    <addData></addData>
+  </configuration></configurations></instances>
+</project>

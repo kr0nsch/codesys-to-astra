@@ -1,0 +1,2 @@
+rule = "C2A-RET001"
+kind = "neg"

@@ -1,0 +1,3 @@
+rule = "C2A-SP19-BIT"
+kind = "pos"
+outcomes = ["auto"]
