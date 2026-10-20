@@ -91,7 +91,8 @@ markers = [
 
 [tool.coverage.run]
 source = ["cds2astra"]
-omit = ["cds2astra/tests/*"]
+# importers/layout — копии st_to_plcopen.py и stlayout.py (их тесты — в kns-port-domestic и plc-repo-template)
+omit = ["*/cds2astra/tests/*", "*/cds2astra/importers/layout/*", "*/cds2astra/__main__.py"]
 branch = true
 
 [tool.coverage.report]

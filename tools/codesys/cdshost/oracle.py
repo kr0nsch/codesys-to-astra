@@ -195,6 +195,7 @@ def run(
         res["date"] = time.strftime("%Y-%m-%d")
         res["xml"] = str(xml_path)
         res["libsubst"] = subst
+        res["libraries_missing"] = data.get("libraries_missing", [])
         res["elapsed_s"] = round(time.time() - started, 1)
         (OUT / f"{case_name}-{ide}-pous-{case['target']}.json").write_text(
             json.dumps(res, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

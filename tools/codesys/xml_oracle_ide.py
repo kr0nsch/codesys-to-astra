@@ -207,10 +207,7 @@ def run_case(case, resolved_all, log):
         else:
             target = proj
             libman = proj.get_library_manager()
-        if case.get('libraries') is None:
-            resolved = resolved_all
-        else:
-            resolved = [resolved_all[i] for i in case['libraries']]
+        resolved = resolved_all
         I.sync_libraries(libman, resolved, [], log, report)
         result['libraries_before'] = [C.ref_record(ref)['name'] for ref in libman.references]
         reporter = Reporter()
@@ -286,7 +283,14 @@ def main():
             pass
         if JOB.get('introspect'):
             result['introspect'] = introspect()
-        resolved = I.resolve_libraries(JOB.get('libraries') or [], JOB.get('repository') or 'System', log)
+        resolved = []
+        missing = []
+        for spec in JOB.get('libraries') or []:
+            try:
+                resolved.extend(I.resolve_libraries([spec], JOB.get('repository') or 'System', log))
+            except Exception as exc:
+                missing.append({'library': spec.get('label') or spec.get('title'), 'error': C._text(exc)})
+        result['libraries_missing'] = missing
         for case in JOB['cases']:
             log.info('случай %s (%s): %s' % (case['name'], case['target'], case['xml']))
             result['cases'].append(run_case(case, resolved, log))

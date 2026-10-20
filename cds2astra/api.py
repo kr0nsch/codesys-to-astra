@@ -28,6 +28,8 @@ from .session import Options, Session, TargetSpec
 __all__ = ["MigrateResult", "Options", "Session", "TargetSpec", "analyze", "inventory", "migrate", "run", "to_zip"]
 
 ZIP_DATE = (1980, 1, 1, 0, 0, 0)
+# ссылки, которые добавляет устройство (ставит среда цели сама) или среда при вставке объектов (IecSfc, Analyzation)
+DEVICE_PLACEHOLDERS = {"iostandard", "3slicense", "cds_memman", "breakpointlogging", "iecsfc", "analyzation"}
 DEFAULT_TARGET = "astra-1.7.2.2"
 
 
@@ -150,11 +152,18 @@ def _libraries_out(s: Session) -> list[dict[str, str]]:
             }
         )
     for ref in s.project.libraries:
-        if s.libmap.vendor_library(ref.title) is not None or ref.title.lower() in ("standard", "util"):
+        title = ref.title.lower()
+        if s.libmap.vendor_library(ref.title) is not None or title in ("standard", "util"):
             continue
-        if ref.placeholder and ref.title.lower() in ("iostandard", "3slicense", "cds_memman", "breakpointlogging"):
+        if ref.name.lower() in s.libs_skipped:
             continue
-        libs.append({"name": ref.name, "namespace": ref.namespace or "", "why": "из исходного проекта"})
+        if ref.placeholder and title in DEVICE_PLACEHOLDERS:
+            continue
+        if "visu" in title:
+            continue  # визуализация в PLCopen XML не переносится (её ссылки ставит менеджер визуализации)
+        name = s.libs_downgraded.get(ref.name, ref.name)
+        why = "из исходного проекта" if name == ref.name else f"из исходного проекта (было {ref.name})"
+        libs.append({"name": name, "namespace": ref.namespace or "", "why": why})
     seen: set[str] = set()
     out: list[dict[str, str]] = []
     for lib in libs:

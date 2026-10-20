@@ -156,7 +156,7 @@ def lib002(s: Session) -> None:
                 None,
                 data={"library": lib.name},
             )
-        elif NEWER_LIBS.search(lib.title) or (ver and ver[:3] > (3, 5, 17) and lib.company in ("System", "CODESYS")):
+        elif NEWER_LIBS.search(lib.title):
             s.add(
                 "C2A-SPxx-LIB",
                 "todo",
@@ -166,6 +166,31 @@ def lib002(s: Session) -> None:
                 None,
                 data={"library": lib.name},
             )
+        elif ver and ver[:3] > (3, 5, 17):
+            used = bool(lib.namespace) and str(lib.namespace).lower() in used_ns
+            if used:
+                s.libs_downgraded[lib.name] = f"{lib.title}, * ({lib.company})"
+                s.add(
+                    "C2A-LIB002",
+                    "auto",
+                    "PROJECT",
+                    f"{lib.name}: версия новее 3.5.17 -> «{lib.title}, * ({lib.company})» (версию выбирает среда цели; "
+                    "если библиотеки 3.5.17 нет — ошибка сборки)",
+                    line,
+                    None,
+                    data={"library": lib.name},
+                )
+            else:
+                s.libs_skipped.add(lib.name.lower())
+                s.add(
+                    "C2A-LIB002",
+                    "info",
+                    "PROJECT",
+                    f"{lib.name}: версия новее 3.5.17, в коде не используется — не переносится",
+                    line,
+                    None,
+                    data={"library": lib.name},
+                )
         elif OWEN_STANDARD.match(lib.title) and ver[:3] == (3, 5, 9):
             s.add("C2A-LIB002", "auto", "PROJECT", f"{lib.name} (Standard ОВЕН) -> плейсхолдер #Standard", line, None)
         elif (
@@ -174,6 +199,7 @@ def lib002(s: Session) -> None:
             and not lib.placeholder
             and lib.company not in ("Prosoft-Systems Ltd", "RegLab")
         ):
+            s.libs_skipped.add(lib.name.lower())
             s.add("C2A-LIB002", "info", "PROJECT", f"{lib.name}: не используется в коде — не переносится", line, None)
     # РегЛаб до 1.7.2.0: старые имена внешних функций
     for code, pou, _kind in _codes(s):

@@ -111,6 +111,8 @@ class Session:
     dropped_objects: set[int] = field(default_factory=set)  # id(Elem) объектов, не попадающих в выход
     replaced_bodies: dict[int, bytes] = field(default_factory=dict)  # id(<body>) -> новые байты тела
     notes: list[str] = field(default_factory=list)
+    libs_downgraded: dict[str, str] = field(default_factory=dict)  # ссылка источника -> ссылка цели (LIB002)
+    libs_skipped: set[str] = field(default_factory=set)  # ссылки, которые не переносятся
 
     # -- находки -------------------------------------------------------------
     def add(

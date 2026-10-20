@@ -1,4 +1,4 @@
-"""Ввод-вывод: карта каналов (io-map.csv/.md) и экспериментальный фрагмент устройств REGUL (regul-devices.xml).
+"""Ввод-вывод: карта каналов (io-map.csv/.md) и устройство ЦП REGUL для импорта (regul-devices.xml).
 
 Стратегия по умолчанию — keep-modbus: модули Mx210 остаются в поле и опрашиваются через Modbus TCP
 Master OS; на модуль — Outer Slave OS, на блок регистров — канал (ARRAY OF WORD + Status). Каналы и
@@ -49,43 +49,45 @@ def _ident(text: str) -> str:
     return re.sub(r"[^A-Za-z0-9_]", "_", text)
 
 
+# Коннекторы ЦП R500 — как в экспорте Astra.IDE V1.7.0.0 (niksosov, ЦП 4096 / 109B 0008). Без них импорт
+# устройства падает («Значение не может быть неопределенным. Имя параметра: array», Astra.IDE 1.7.2.2, 20.10.2026).
+CPU_CONNECTORS = (
+    ("256", "Common.PCI", "0"),
+    ("4096", "Regul.SysSerial", "1"),
+    ("4096", "Regul.Common", "2"),
+    ("4096", "RegulR500.Common", "3"),
+)
+
+
 def regul_devices(cpu: str, slaves: list[dict[str, Any]]) -> bytes:
-    """Фрагмент дерева REGUL по структуре экспорта Astra V1.7.0.0 (niksosov): ЦП, Modbus TCP Master OS,
-    Outer Slave OS на каждый модуль Mx210. Экспериментально: импорт — эксперимент E6 (docs/PROBES.md)."""
+    """Устройство ЦП REGUL по структуре экспорта Astra V1.7.0.0 (niksosov) для импорта в проект.
+
+    Импорт этого фрагмента (ЦП с коннекторами) в Astra.IDE 1.7.2.2 проверен локально 20.10.2026 (E6, docs/PROBES.md).
+    Modbus TCP Master OS и Outer Slave OS в файл не идут: без образца их коннекторов импорт падает, они
+    добавляются в мастере конфигурации по io-map (перечень — в Comment)."""
     data = resources.read_toml("data", "regul_modules.toml")
     c = data["cpu"].get(cpu) or data["cpu"]["REGUL R500 61"]
     master = data["modbus"]["Modbus TCP Master OS"]
     outer = data["modbus"]["Modbus TCP Outer Slave OS"]
-
-    def ident(t: Any, i: str, v: str, ind: str) -> str:
-        return (
-            f"{ind}<DeviceIdentification>\n{ind}  <Type>{t}</Type>\n{ind}  <Id>{i}</Id>\n"
-            f"{ind}  <Version>{v}</Version>\n{ind}</DeviceIdentification>\n"
-        )
-
-    slaves_xml = []
-    for sl in slaves:
-        name = X.escape_attr(_ident(sl["name"]))
-        slaves_xml.append(
-            f'                  <configuration name="{name}">\n'
-            "                    <addData>\n"
-            '                      <data name="Device" handleUnknown="discard">\n'
-            '                        <Device xmlns="">\n'
-            "                          <DeviceType>\n"
-            + ident(outer["type"], outer["id"], outer["version"], "                            ")
-            + "                          </DeviceType>\n"
-            "                        </Device>\n"
-            "                      </data>\n"
-            "                    </addData>\n"
-            "                  </configuration>\n"
-        )
+    names = ", ".join(_ident(sl["name"]) for sl in slaves) or "нет"
+    conns = "".join(
+        f'                <Connector moduleType="{mt}" interface="{iface}" connectorId="{cid}">\n'
+        "                  <HostParameterSet />\n"
+        "                </Connector>\n"
+        for mt, iface, cid in CPU_CONNECTORS
+    )
+    comment = (
+        f"Устройство ЦП {cpu} ({c['type']} / {c['id']} / {c['version']}). Добавить вручную: Modbus TCP Master OS "
+        f"({master['type']} / {master['id']}) и Modbus TCP Outer Slave OS ({outer['type']} / {outer['id']}) на модули: "
+        f"{names}; каналы — io-map.md"
+    )
     text = (
         '<?xml version="1.0" encoding="utf-8"?>\n'
         '<project xmlns="http://www.plcopen.org/xml/tc6_0200">\n'
         f'  <fileHeader companyName="plc-portfolio" productName="{TOOL_NAME}" productVersion="{TOOL_NAME} {__version__}" '
         'creationDateTime="1970-01-01T00:00:00" />\n'
-        '  <contentHeader name="regul-devices (экспериментально)">\n'
-        "    <Comment>Фрагмент дерева устройств REGUL. Статус: экспериментально, импорт не подтверждён (E6).</Comment>\n"
+        '  <contentHeader name="regul-devices">\n'
+        f"    <Comment>{X.escape_text(comment).decode('utf-8')}</Comment>\n"
         '    <coordinateInfo>\n      <fbd>\n        <scaling x="1" y="1" />\n      </fbd>\n'
         '      <ld>\n        <scaling x="1" y="1" />\n      </ld>\n'
         '      <sfc>\n        <scaling x="1" y="1" />\n      </sfc>\n    </coordinateInfo>\n'
@@ -97,27 +99,13 @@ def regul_devices(cpu: str, slaves: list[dict[str, Any]]) -> bytes:
         '          <data name="Device" handleUnknown="discard">\n'
         '            <Device xmlns="">\n'
         "              <DeviceType>\n"
-        + ident(c["type"], c["id"], c["version"], "                ")
-        + "              </DeviceType>\n"
+        "                <DeviceIdentification>\n"
+        f"                  <Type>{c['type']}</Type>\n"
+        f"                  <Id>{c['id']}</Id>\n"
+        f"                  <Version>{c['version']}</Version>\n"
+        "                </DeviceIdentification>\n" + conns + "                <DeviceParameterSet />\n"
+        "              </DeviceType>\n"
         "            </Device>\n"
-        "          </data>\n"
-        '          <data name="configurations" handleUnknown="discard">\n'
-        "            <configurations>\n"
-        '              <configuration name="Modbus_TCP_Master_OS">\n'
-        "                <addData>\n"
-        '                  <data name="Device" handleUnknown="discard">\n'
-        '                    <Device xmlns="">\n'
-        "                      <DeviceType>\n"
-        + ident(master["type"], master["id"], master["version"], "                        ")
-        + "                      </DeviceType>\n"
-        "                    </Device>\n"
-        "                  </data>\n"
-        '                  <data name="configurations" handleUnknown="discard">\n'
-        "                <configurations>\n" + "".join(slaves_xml) + "                </configurations>\n"
-        "                  </data>\n"
-        "                </addData>\n"
-        "              </configuration>\n"
-        "            </configurations>\n"
         "          </data>\n"
         "        </addData>\n"
         "      </configuration>\n"

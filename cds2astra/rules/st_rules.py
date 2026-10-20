@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 
 from ..ir import st
-from ..ir.model import CodeText, Gvl, Pou, Var
+from ..ir.model import Body, CodeText, GRef, Gvl, Pou, Var
 from ..libmap import Entry
 from ..session import Session, all_codes
 from .common import GraphMarkers, lex
@@ -121,6 +121,7 @@ def _lib001_graphics(s: Session, ns_map: dict[str, str]) -> None:
             line = ref.elem.line
             if entry is not None and entry.kind in ("map", "wrap") and entry.target:
                 s.set_attr(ref.elem, "typeName", entry.target, "C2A-LIB001")
+                _rename_return_pin(s, body, ref, name, entry.target)
                 if entry.kind == "wrap":
                     gm.add(s, body, ref, "CHECK", "C2A-LIB001", f"{ref.name} -> {entry.target} (AstraCompat)")
                 s.add(
@@ -154,6 +155,21 @@ def _lib001_graphics(s: Session, ns_map: dict[str, str]) -> None:
                     local_id=ref.local_id,
                     data={"source": ref.name, "network": ref.network},
                 )
+
+
+def _rename_return_pin(s: Session, body: Body, ref: GRef, old: str, new: str) -> None:
+    """Выход-результат функции в графике назван именем функции (formalParameter="WORD_TO_HEX_STR"): при замене
+    typeName он переименовывается вместе с соединениями на него (проба: C0038 в обеих IDE без этого)."""
+    lid = ref.local_id
+    for var in ref.elem.iter("variable"):
+        if var.parent is not None and var.parent.tag == "outputVariables" and var.attrs.get("formalParameter") == old:
+            s.set_attr(var, "formalParameter", new, "C2A-LIB001")
+    root = body.lang_elem
+    if root is None or lid is None:
+        return
+    for conn in root.iter("connection"):
+        if conn.attrs.get("refLocalId") == lid and conn.attrs.get("formalParameter") == old:
+            s.set_attr(conn, "formalParameter", new, "C2A-LIB001")
 
 
 # --------------------------------------------------------------------------- IO001
