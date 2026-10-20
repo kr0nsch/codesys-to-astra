@@ -7,45 +7,45 @@
       "cmd": "python -m cds2astra inventory corpus/boiler-plc210/export.xml",
       "events": [
         [
-          0.281,
+          0.275,
           "stdout",
           "export.xml: CODESYS V3.5 SP17 Patch 3 (tc6_0200, resource)\r\n  POU 5, интерфейсов 0, действий 0, методов 0, свойств 0, переходов 0\r\n  тела: ST 5\r\n  GVL 5, DUT 1, библиотек 5, устройств 7 (привязок 12)\r\n  задачи: FastTask=0 (10.0 мс), MainTask=1 (50.0 мс), SlowTask=15 (1000.0 мс)\r\n  тексты объявлений: есть; неизвестных addData 0\r\n"
         ]
       ],
       "exit_code": 0,
-      "duration": 0.293,
+      "duration": 0.286,
       "pause": 1.2
     },
     {
       "cmd": "python -m cds2astra migrate corpus/boiler-plc210/export.xml --target-spec corpus/boiler-plc210/target.toml --out out/boiler --fail-on never",
       "events": [
         [
-          0.512,
+          0.51,
           "stdout",
           "cds2astra 0.1.0: export.xml -> out/boiler/ (9 файлов)\r\n  авто 2, сверить 26, вручную 4, невозможно 0, сведения 5; P50 19.84 ч, P90 23.49 ч (модель)\r\n"
         ]
       ],
       "exit_code": 0,
-      "duration": 0.525,
+      "duration": 0.523,
       "pause": 1.2
     },
     {
       "cmd": "python tools/codesys/xml_oracle.py out/boiler/astra-import.xml --ide astra --target app",
       "events": [
         [
-          21.319,
+          19.097,
           "stdout",
-          "[oracle] Astra.IDE 1.7.2.2 app: объектов 13 (в дереве 14), нет 0, ошибок импорта 0, ошибок сборки 6 (вне todo 0), предупреждений 1 — OK\r\n         Компиляция завершена -- 6 ошибок, 1 предупреждений\r\n"
+          "[oracle] Astra.IDE 1.7.2.2 app: объектов 13 (в дереве 14), нет 0, ошибок импорта 0\r\n         сборка: ошибок 6 (вне todo 0), предупреждений 1 — OK\r\n         Компиляция завершена -- 6 ошибок, 1 предупреждений\r\n"
         ]
       ],
       "exit_code": 0,
-      "duration": 21.331,
+      "duration": 19.108,
       "pause": 1.2
     }
   ],
   "meta": {
     "captured_with": "term2gif.py capture",
-    "captured_at": "2026-10-20T03:43:16",
+    "captured_at": "2026-10-20T04:11:31",
     "shell": "cmd",
     "cwd": "codesys-to-astra",
     "columns_env": 104,

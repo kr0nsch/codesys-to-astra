@@ -42,8 +42,11 @@ def main(argv: list[str] | None = None) -> int:
         verdict = "OK" if r["ok"] else "ОШИБКА"
         print(
             f"[oracle] {r['ide_title']} {r['target']}: объектов {r['objects_expected']} (в дереве {r['objects_found']}), "
-            f"нет {len(r['missing'])}, ошибок импорта {len(r['import_errors'])}, ошибок сборки {len(r['errors'])} "
-            f"(вне todo {len(r['errors_unexpected'])}), предупреждений {len(r['warnings'])} — {verdict}"
+            f"нет {len(r['missing'])}, ошибок импорта {len(r['import_errors'])}"
+        )
+        print(
+            f"         сборка: ошибок {len(r['errors'])} (вне todo {len(r['errors_unexpected'])}), "
+            f"предупреждений {len(r['warnings'])} — {verdict}"
         )
         if r.get("summary_line"):
             print(f"         {r['summary_line']}")
