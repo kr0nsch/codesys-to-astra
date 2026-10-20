@@ -1,0 +1,9 @@
+# Публичный экспорт ctrlX PLC Engineering 3.6.3 (база CODESYS), MIT: вход без задач и устройств.
+class = "ide-export"
+origin = "https://github.com/ThorstenBrach/SRCI @ 67fd773b, RobotLibrarySysDep_3S.xml (MIT, LICENSE рядом)"
+ide = "ctrlX PLC Engineering"
+ide_version = "3.6.3"
+sha256 = "fe47b4f371a8efc74e98ac346a4b88f220f575379645bb288c5422d186168632"
+date = "2026-10-20"
+claims = "разбор и round-trip preserve побайтно; разметка FP (0 находок)"
+not_claimed = "импорт и сборка в IDE (оракулом не прогонялся)"

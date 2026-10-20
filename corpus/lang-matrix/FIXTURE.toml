@@ -1,0 +1,22 @@
+# Матрица шести языков: рукописный TC6 и его обратные экспорты из обеих IDE.
+[files."source.handmade.xml"]
+class = "handmade"
+origin = "tools/corpus/build_lang_matrix.py"
+date = "2026-10-20"
+claims = "IL в нём не импортируется ни одной IDE (P4) — вход для IL -> ST; остальные языки импортируются (P5)"
+
+[files."export.codesys.xml"]
+class = "ide-roundtrip"
+origin = "source.handmade.xml -> импорт в CODESYS 3.5.17.30 -> экспорт PLCopen XML (tools/probes.py, P5)"
+ide = "CODESYS"
+ide_version = "3.5.17.30"
+date = "2026-10-20"
+claims = "импортируется и собирается; байты как есть (.gitattributes -text)"
+
+[files."export.astra.xml"]
+class = "ide-roundtrip"
+origin = "source.handmade.xml -> импорт в Astra.IDE 1.7.2.2 -> экспорт PLCopen XML (tools/probes.py, P5)"
+ide = "Astra.IDE"
+ide_version = "1.7.2.2"
+date = "2026-10-20"
+claims = "импортируется и собирается; байты как есть (.gitattributes -text)"

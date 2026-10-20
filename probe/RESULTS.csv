@@ -1,0 +1,21 @@
+probe_id,construct,file,expected,observed,ide,ide_version,date,notes
+P1,экспорт Astra.IDE V1.7.0.0 (форма resource) в проект R500 61,.cache/niksosov/AstraRegul_stand.xml,импорт POU,"error:Объект 'REGUL_R500_71_W' не принят родительским объектом или некорректен (например, отсутствует плагин или описание устройства)",Astra.IDE,1.7.2.2,2026-10-20,app и pool; затем «Импортируемых объектов не найдено»
+P1,экспорт Astra.IDE V1.7.0.0 (форма resource),.cache/niksosov/AstraRegul_stand.xml,импорт POU,"error:Объект 'REGUL_R500_71_W' не принят родительским объектом или некорректен (например, отсутствует плагин или описание устройства)",CODESYS,3.5.17.30,2026-10-20,app и pool
+P2,форма resource без устройства,probe/p2_resource_form.xml,импорт POU и задач,"error:Объект 'CfgOther' не принят родительским объектом или некорректен (например, отсутствует плагин или описание устройства)",Astra.IDE,1.7.2.2,2026-10-20,app и pool
+P2,форма resource без устройства,probe/p2_resource_form.xml,импорт POU и задач,"error:Объект 'CfgOther' не принят родительским объектом или некорректен (например, отсутствует плагин или описание устройства)",CODESYS,3.5.17.30,2026-10-20,app и pool
+P3,ссылки на библиотеки при импорте,probe/p3_libraries.xml,ссылки появляются в Library Manager,value:ссылки не созданы (список до и после импорта одинаков),Astra.IDE,1.7.2.2,2026-10-20,POU собран: 0 ошибок
+P3,ссылки на библиотеки при импорте,probe/p3_libraries.xml,ссылки появляются в Library Manager,value:ссылки не созданы (список до и после импорта одинаков),CODESYS,3.5.17.30,2026-10-20,POU собран: 0 ошибок
+P4,тело на IL,probe/p4_il.xml,объект IL создан,error:Unknown 'LD' element: 'xhtml',Astra.IDE,1.7.2.2,2026-10-20,"затем «Не удалось создать объект 'PRG_P4'»; опции среды из ScriptEngine недоступны"
+P4,тело на IL,probe/p4_il.xml,объект IL создан,error:Unknown 'LD' element: 'xhtml',CODESYS,3.5.17.30,2026-10-20,"затем «Не удалось создать объект 'PRG_P4'»"
+P5,рукописный TC6 FBD/LD/SFC/CFC,corpus/lang-matrix/source.handmade.xml,импорт и обратный экспорт,ok,Astra.IDE,1.7.2.2,2026-10-20,"7 объектов; IL — как P4; pool: 13 ошибок от библиотеки ОВЕН OSU во входе"
+P5,рукописный TC6 FBD/LD/SFC/CFC,corpus/lang-matrix/source.handmade.xml,импорт и обратный экспорт,ok,CODESYS,3.5.17.30,2026-10-20,"7 объектов; IL — как P4; pool: 13 ошибок от библиотеки ОВЕН OSU во входе"
+P6,TaskSettings при других именах задач и ресурса,probe/p2_resource_form.xml,задачи созданы,value:задач после импорта нет (форма resource не импортируется),Astra.IDE,1.7.2.2,2026-10-20,задачи — шагом IMPORT_STEPS.md
+P6,TaskSettings при других именах задач и ресурса,probe/p2_resource_form.xml,задачи созданы,value:задач после импорта нет (форма resource не импортируется),CODESYS,3.5.17.30,2026-10-20,задачи — шагом IMPORT_STEPS.md
+P7,таргеты ОВЕН 3.5.17.36 и Mx210Templates,—,devdesc установлены,not-run,CODESYS,3.5.17.30,2026-10-20,нужен UAC; слой ОВЕН — synthetic
+P8,"ООП: интерфейсы, методы, свойства, наследование",build/probes/p8_constructs.xml (kns constructs @ 6262d0f),0 ошибок,ok,Astra.IDE,1.7.2.2,2026-10-20,58 объектов; app и pool 0/0
+P8,"ООП: интерфейсы, методы, свойства, наследование",build/probes/p8_constructs.xml (kns constructs @ 6262d0f),0 ошибок,ok,CODESYS,3.5.17.30,2026-10-20,58 объектов; app и pool 0/0
+P9,coUnit после импорта XML,—,тесты проходят,not-run,CODESYS,3.5.17.30,2026-10-20,AstraCompat проходит coUnit 25/25 в своём проекте
+E6,ЦП R500 61 с коннекторами,out/boiler/regul-devices.xml,устройство в дереве,place:Device/Plc Logic/Application,Astra.IDE,1.7.2.2,2026-10-20,"без коннекторов: «Значение не может быть неопределенным. Имя параметра: array»"
+E5,выгрузки форматов из интерфейса,—,образцы CSV и XML каналов,not-run,Astra.IDE,1.7.2.2,,у владельца (docs/OWNER_EXPERIMENTS.md)
+E7,визуализация на ПЛК,—,WebVisu на ЦП -W,not-run,Astra.IDE,1.7.2.2,,у владельца
+E8,ВПЛК R500 1.7.2.6: SIZEOF(POINTER) и порядок слов,—,значения,not-run,Astra.IDE,1.7.2.2,,у владельца

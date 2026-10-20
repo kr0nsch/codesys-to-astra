@@ -62,7 +62,7 @@ _POU_END = {
 
 @dataclass
 class Segment:
-    """Диапазон строк собранного файла и его источник (None — сгенерированные строки)."""
+    """Диапазон строк собранного файла и его источник (None — строки, добавленные сборщиком)."""
 
     start: int
     count: int
@@ -518,7 +518,7 @@ class SourceMap:
         return cls(files)
 
     def lookup(self, file_name: str, line: int) -> tuple[str, int] | None:
-        """(исходный файл, строка) или None для сгенерированных строк и чужих файлов."""
+        """(исходный файл, строка) или None для строк, добавленных сборщиком, и чужих файлов."""
         for start, count, source, source_start in self.files.get(os.path.basename(file_name), []):
             assert isinstance(start, int) and isinstance(count, int)
             if start <= line < start + count:

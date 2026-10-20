@@ -1,0 +1,9 @@
+# Класс фикстуры (ТЗ §8): synthetic — создан скриптами проекта, IDE исходник не исполняла.
+class = "synthetic"
+origin = "раскладка ST src/ (вымышленная котельная) + слой ОВЕН tools/corpus/owen_overlay.py"
+date = "2026-10-20"
+source_ide = "форма экспорта CODESYS 3.5.17.30 с устройством (размещение resource); заголовок CODESYS V3.5 SP17 Patch 3 — чтобы вход читался как SP17"
+why_synthetic = "проба P7 (таргеты ОВЕН 3.5.17.36 в CODESYS 3.5.17.30) не выполнялась: DeviceIdentification узлов ОВЕН — заглушки SYN"
+claims = "детекторы и правки правил; выход cds2astra импортируется и собирается в Astra.IDE 1.7.2.2 (R500 61) и CODESYS 3.5.17.30 (app, pool), 20.10.2026"
+not_claimed = "что вход — настоящий экспорт ПЛК210 и что исходный проект собирается в CODESYS с таргетами ОВЕН"
+regenerate = "python tools/corpus/owen_overlay.py"

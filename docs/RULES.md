@@ -56,7 +56,7 @@
 
 ## C2A-IO003 — Типизированные каналы шаблонов Mx210
 
-Драйверы Modbus REGUL отдают канал как ARRAY OF WORD (DPA-302.1 с. 15–16), а не REAL: на блок регистров создаётся канал Modbus TCP Outer Slave OS, распаковка — FB_C2aMbUnpack. Порядок слов FLOAT32 по профилю unknown -> check.
+Драйверы Modbus REGUL отдают канал как ARRAY OF WORD (DPA-302.1 с. 15–16), а не REAL: на блок регистров создаётся канал Modbus TCP Outer Slave OS, распаковка — F_C2aMbToReal и FB_C2aMbUnpack (AstraCompat). Порядок слов FLOAT32 по профилю unknown -> check.
 
 - Исходы: сверить (`check`).
 - Автоправка: массив WORD в GVL_IO, распаковка в PRG_C2aIoUpdate, строка io-map (FC, смещение, длина, период).

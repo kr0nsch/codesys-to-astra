@@ -1,0 +1,9 @@
+# Публичный экспорт CODESYS V3.5 SP18 Patch 2 (MIT): вход для понижения SP18+ -> 3.5.17.
+class = "ide-export"
+origin = "https://github.com/tkucic/codesys_code_execution_speedTests @ d3abcf45 (MIT, LICENSE рядом)"
+ide = "CODESYS"
+ide_version = "V3.5 SP18 Patch 2"
+sha256 = "3d56646f8d34e0b1bfb77b8d343c72817c318d5c0975ba70784c612bc8d9f80a"
+date = "2026-10-20"
+claims = "выход cds2astra собирается в Astra.IDE 1.7.2.2 и CODESYS 3.5.17.30 без ошибок (нет библиотеки-плейсхолдера #CAA Device Diagnosis в репозитории — сборка без неё)"
+not_claimed = "поведение кода образца"

@@ -1,0 +1,7 @@
+# Цепочка S7 -> CODESYS -> REGUL: выход s7-to-codesys 1.0 (раскладка ST), публичный образец того же автора.
+class = "ide-export"
+origin = "https://github.com/kr0nsch/s7-to-codesys @ 2285760: src/ (выход s7conv), LICENSE рядом"
+ide = "CODESYS"
+ide_version = "3.5.17.30"
+date = "2026-10-20"
+claims = "выход cds2astra импортируется и собирается в Astra.IDE 1.7.2.2 и CODESYS 3.5.17.30 (app, pool); маркеры s7conv распознаются (C2A-MARK)"
