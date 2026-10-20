@@ -1,0 +1,15 @@
+udiUtc := SysTimeRtcGet(pResult := udiResult);
+xOk := udiResult = 0;
+udiLocal := DINT_TO_UDINT(UDINT_TO_DINT(udiUtc) + SINT_TO_DINT(siUtcOffset_h) * GVL_C2aConst.SECONDS_PER_HOUR);
+stDate := F_C2aUnixToDate(udiLocal);
+uiYear := stDate.uiYear;
+usiMonth := stDate.usiMonth;
+usiDay := stDate.usiDay;
+usiHour := stDate.usiHour;
+usiMinute := stDate.usiMinute;
+usiSecond := stDate.usiSecond;
+usiDayOfWeek := stDate.usiDayOfWeek;
+sFormatDate := CONCAT(CONCAT(CONCAT(CONCAT(F_C2aPad2(usiDay), '.'), F_C2aPad2(usiMonth)), '.'), UINT_TO_STRING(uiYear));
+sFormatTime := CONCAT(CONCAT(CONCAT(CONCAT(F_C2aPad2(usiHour), ':'), F_C2aPad2(usiMinute)), ':'), F_C2aPad2(usiSecond));
+dtDateAndTime := UDINT_TO_DT(udiUtc);
+ltSystemTimer := LTIME();
