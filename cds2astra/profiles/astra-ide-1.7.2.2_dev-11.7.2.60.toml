@@ -1,0 +1,319 @@
+# Профиль цели: Astra.IDE 1.7.2.2 (РегЛаб), описания устройств REGUL 11.7.2.60.
+# У каждого значения: status (documented | observed_in_sample | verified_local | owner_verified | unknown),
+# source (URL и страница или путь скрипта), date; verified_local — версия IDE, устройств, дата, скрипт.
+# verified_local железом не подтверждается: это локальный прогон Astra.IDE без ПЛК.
+
+id = "astra-1.7.2.2"
+kind = "target"
+title = "Astra.IDE 1.7.2.2, устройства REGUL 11.7.2.60"
+ide = "Astra.IDE"
+ide_version = "1.7.2.2"
+devices_version = "11.7.2.60"
+
+[compiler]
+value = "3.5.17.30"
+status = "verified_local"
+source = "Profiles/Astra.IDE_V1.7.2.2.profile.xml: Exact 3.5.17.30 «Compiler for the compiler Version 3.5.17.0»"
+date = "2026-10-19"
+script = "cds2astra probe --ide-profile"
+
+[plcopenxml]
+value = "3.5.17.20"
+status = "verified_local"
+source = "Profiles/Astra.IDE_V1.7.2.2.profile.xml: Exact 3.5.17.20 «PLCopenXML»"
+date = "2026-10-19"
+script = "cds2astra probe --ide-profile"
+
+[device]
+value = "4096 / 109B 0008 / 11.7.2.60"
+status = "verified_local"
+source = "C:/ProgramData/Astra.IDE_64_1.7.2.2/Devices/4096/; проект создаёт tools/codesys/xml_oracle.py"
+date = "2026-10-20"
+title = "REGUL R500 61"
+
+[languages]
+value = ["ST", "FBD", "LD", "SFC", "CFC", "IL"]
+status = "documented"
+source = "https://reglab.ru/upload/iblock/86e/aqrzbeuk0bjd3jdn1au63e8i2r5d63wk/Astra-IDE-User-Guide-_DPA_302_v2_20_rus.pdf с. 18, 32"
+date = "2026-10-19"
+
+[il_requires_option]
+value = true
+status = "documented"
+source = "https://reglab.ru/upload/materialy-kursa/dobavlenie_obektov_v_prilozhenie.htm (курс РегЛаб 5.2: «Включить IL»)"
+date = "2026-10-19"
+
+[tasks.priority_min]
+value = 0
+status = "documented"
+source = "https://reglab.ru/upload/iblock/86e/aqrzbeuk0bjd3jdn1au63e8i2r5d63wk/Astra-IDE-User-Guide-_DPA_302_v2_20_rus.pdf с. 46, табл. 1"
+date = "2026-10-19"
+
+[tasks.priority_max]
+value = 15
+status = "documented"
+source = "https://reglab.ru/upload/iblock/86e/aqrzbeuk0bjd3jdn1au63e8i2r5d63wk/Astra-IDE-User-Guide-_DPA_302_v2_20_rus.pdf с. 46; devdesc R500 171 maxtaskpriority = 15"
+date = "2026-10-19"
+
+[tasks.priority_default]
+value = 2
+status = "documented"
+source = "https://reglab.ru/upload/iblock/0fd/bkk3sngi1qu0kz62c3j1so8iykr78fr6/RegLab_Ltd_Regul_1.7.2.6.package (devdesc REGUL R500 171: defaulttaskpriority = 2)"
+date = "2026-10-19"
+
+[tasks.max_tasks]
+value = 100
+status = "documented"
+source = "https://reglab.ru/upload/iblock/0fd/bkk3sngi1qu0kz62c3j1so8iykr78fr6/RegLab_Ltd_Regul_1.7.2.6.package (devdesc REGUL R500 171: maxnumoftasks = 100)"
+date = "2026-10-19"
+
+[tasks.regulbus]
+value = 0
+status = "documented"
+source = "https://reglab.ru/upload/iblock/86e/aqrzbeuk0bjd3jdn1au63e8i2r5d63wk/Astra-IDE-User-Guide-_DPA_302_v2_20_rus.pdf с. 46: 0 — только RegulBus"
+date = "2026-10-19"
+
+[tasks.redundancy_sync]
+value = 1
+status = "documented"
+source = "https://reglab.ru/upload/iblock/28f/tmu37n4jz4w5oxepmx0431vb5q5yo6xw/Redundancy-User-Guide-_DPA_302_4_v2_11_rus.pdf с. 17"
+date = "2026-10-19"
+note = "ЦП I/III типа. В образце niksosov MAIN_TASK = 1 при PsRedundancy_OS (observed_in_sample): это синхронизируемая задача, противоречия нет"
+
+[tasks.type2_sync]
+value = 4
+status = "documented"
+source = "https://reglab.ru/upload/iblock/28f/tmu37n4jz4w5oxepmx0431vb5q5yo6xw/Redundancy-User-Guide-_DPA_302_4_v2_11_rus.pdf с. 22"
+date = "2026-10-19"
+
+[tasks.type2_forbidden]
+value = [1, 2, 3]
+status = "documented"
+source = "https://reglab.ru/upload/iblock/28f/tmu37n4jz4w5oxepmx0431vb5q5yo6xw/Redundancy-User-Guide-_DPA_302_4_v2_11_rus.pdf с. 22"
+date = "2026-10-19"
+
+[tasks.system_level]
+value = 14
+status = "documented"
+source = "https://reglab.ru/upload/iblock/86e/aqrzbeuk0bjd3jdn1au63e8i2r5d63wk/Astra-IDE-User-Guide-_DPA_302_v2_20_rus.pdf с. 46: 14 — уровень системных служб"
+date = "2026-10-19"
+
+[tasks.visu]
+value = 15
+status = "documented"
+source = "https://reglab.ru/upload/materialy-kursa/zadacha_visu_task.htm (VISU_TASK, приоритет 15)"
+date = "2026-10-19"
+
+[tasks.band_start]
+value = 2
+status = "documented"
+source = "https://reglab.ru/upload/iblock/86e/aqrzbeuk0bjd3jdn1au63e8i2r5d63wk/Astra-IDE-User-Guide-_DPA_302_v2_20_rus.pdf с. 46: 2–3 выше сетевой подсистемы, 4–13 реальное время"
+date = "2026-10-19"
+
+[tasks.band_end]
+value = 13
+status = "documented"
+source = "https://reglab.ru/upload/iblock/86e/aqrzbeuk0bjd3jdn1au63e8i2r5d63wk/Astra-IDE-User-Guide-_DPA_302_v2_20_rus.pdf с. 46"
+date = "2026-10-19"
+
+[tasks.type2_band_start]
+value = 5
+status = "documented"
+source = "https://reglab.ru/upload/iblock/28f/tmu37n4jz4w5oxepmx0431vb5q5yo6xw/Redundancy-User-Guide-_DPA_302_4_v2_11_rus.pdf с. 22 (4 — синхронизируемая, 1–3 запрещены)"
+date = "2026-10-19"
+
+[memory.input]
+value = 131072
+status = "documented"
+source = "https://reglab.ru/upload/iblock/0fd/bkk3sngi1qu0kz62c3j1so8iykr78fr6/RegLab_Ltd_Regul_1.7.2.6.package (devdesc R500 171: input-size = 131072)"
+date = "2026-10-19"
+
+[memory.output]
+value = 131072
+status = "documented"
+source = "https://reglab.ru/upload/iblock/0fd/bkk3sngi1qu0kz62c3j1so8iykr78fr6/RegLab_Ltd_Regul_1.7.2.6.package (devdesc R500 171: output-size = 131072)"
+date = "2026-10-19"
+
+[memory.marker]
+value = 131072
+status = "documented"
+source = "https://reglab.ru/upload/iblock/0fd/bkk3sngi1qu0kz62c3j1so8iykr78fr6/RegLab_Ltd_Regul_1.7.2.6.package (devdesc R500 171: memory-size = 131072)"
+date = "2026-10-19"
+
+[memory.dynamic]
+value = 10485760
+status = "documented"
+source = "https://reglab.ru/upload/iblock/0fd/bkk3sngi1qu0kz62c3j1so8iykr78fr6/RegLab_Ltd_Regul_1.7.2.6.package (devdesc R500 171: default_dynamic_memory_size)"
+date = "2026-10-19"
+
+[memory.retain]
+value = 1048576
+status = "documented"
+source = "https://reglab.ru/upload/iblock/86e/aqrzbeuk0bjd3jdn1au63e8i2r5d63wk/Astra-IDE-User-Guide-_DPA_302_v2_20_rus.pdf (RETAIN: SRAM до 1 МБ или файл [PsRetain] StorageType=File)"
+date = "2026-10-19"
+
+[memory.max_apps]
+value = 1
+status = "documented"
+source = "https://reglab.ru/upload/iblock/0fd/bkk3sngi1qu0kz62c3j1so8iykr78fr6/RegLab_Ltd_Regul_1.7.2.6.package (devdesc R500 171: max_number_of_apps = 1)"
+date = "2026-10-19"
+
+[symbols.pointers_forbidden_since]
+value = "1.7.2.5"
+status = "documented"
+source = "https://reglab.ru/soft/ (release notes 1.7.2.5: указатели и ссылки запрещены в символьной конфигурации)"
+date = "2026-10-19"
+
+[redundancy.sync_limit_type13]
+value = 512000
+status = "documented"
+source = "https://reglab.ru/upload/iblock/28f/tmu37n4jz4w5oxepmx0431vb5q5yo6xw/Redundancy-User-Guide-_DPA_302_4_v2_11_rus.pdf с. 47"
+date = "2026-10-19"
+
+[redundancy.sync_limit_type2]
+value = 102400
+status = "documented"
+source = "https://reglab.ru/upload/iblock/28f/tmu37n4jz4w5oxepmx0431vb5q5yo6xw/Redundancy-User-Guide-_DPA_302_4_v2_11_rus.pdf с. 47"
+date = "2026-10-19"
+
+[redundancy.pointers_forbidden]
+value = true
+status = "documented"
+source = "https://reglab.ru/upload/iblock/28f/tmu37n4jz4w5oxepmx0431vb5q5yo6xw/Redundancy-User-Guide-_DPA_302_4_v2_11_rus.pdf с. 46"
+date = "2026-10-19"
+
+[platform.pack_mode]
+value = 8
+status = "documented"
+source = "https://reglab.ru/upload/iblock/0fd/bkk3sngi1qu0kz62c3j1so8iykr78fr6/RegLab_Ltd_Regul_1.7.2.6.package (devdesc R500 171: Intel X86, pack-mode = 8)"
+date = "2026-10-19"
+
+[platform.pointer_size]
+value = "unknown"
+status = "unknown"
+source = "по devdesc не определить; проба SIZEOF(POINTER) — docs/OWNER_EXPERIMENTS.md"
+date = "2026-10-19"
+
+[modbus.word_order_float32]
+value = "unknown"
+status = "unknown"
+source = "порядок слов FLOAT32 Mx210 через драйвер REGUL не сверен — docs/HARDWARE_VALIDATION.md"
+date = "2026-10-19"
+
+[modbus.channel_data]
+value = "ARRAY OF WORD"
+status = "documented"
+source = "https://reglab.ru/upload/iblock/c63/bxjpd31viamzx3b4i0nj0zthy4xq1sg1/Modbus-User-Guide-DPA_302-1_v1.7_rus.pdf с. 15–16"
+date = "2026-10-19"
+
+[modbus.status_type]
+value = "PsIoDrvModbusSerialMaster.ChannelStatus"
+status = "verified_local"
+source = "https://github.com/kr0nsch/kns-port-domestic/blob/main/docs/BUILD_ERRORS.md (1.1, Astra.IDE 1.7.2.2)"
+date = "2026-10-19"
+
+[oop.extends]
+value = true
+status = "verified_local"
+source = "проба P8: фикстура ООП kns @ 6262d0f импортирована и проверена «Проверить все объекты» без ошибок (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[oop.super]
+value = true
+status = "verified_local"
+source = "проба P8: фикстура ООП kns @ 6262d0f импортирована и проверена «Проверить все объекты» без ошибок (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[oop.abstract]
+value = true
+status = "verified_local"
+source = "проба P8: фикстура ООП kns @ 6262d0f импортирована и проверена «Проверить все объекты» без ошибок (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[oop.access]
+value = true
+status = "verified_local"
+source = "проба P8: фикстура ООП kns @ 6262d0f импортирована и проверена «Проверить все объекты» без ошибок (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[oop.interface_extends]
+value = true
+status = "verified_local"
+source = "проба P8: фикстура ООП kns @ 6262d0f импортирована и проверена «Проверить все объекты» без ошибок (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[oop.methods_plcopen]
+value = true
+status = "verified_local"
+source = "проба P8: фикстура ООП kns @ 6262d0f импортирована и проверена «Проверить все объекты» без ошибок (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[oop.properties_plcopen]
+value = true
+status = "verified_local"
+source = "проба P8: фикстура ООП kns @ 6262d0f импортирована и проверена «Проверить все объекты» без ошибок (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[import.form_default]
+value = "pous"
+status = "verified_local"
+source = "пробы P1/P2: форма resource (instances/configuration) не импортируется ни в app, ни в pool; types/pous — да (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[import.creates_library_refs]
+value = false
+status = "verified_local"
+source = "проба P3: ссылки Library Manager после импорта не меняются (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[import.il]
+value = false
+status = "verified_local"
+source = "проба P4: <IL><xhtml> не импортируется — «Unknown 'LD' element: 'xhtml'» (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[import.tasks]
+value = false
+status = "verified_local"
+source = "пробы P2/P6: задачи приходят только в форме resource, а она не импортируется (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+[import.graphics]
+value = true
+status = "verified_local"
+source = "проба P5: FBD, LD, SFC, CFC рукописного TC6 импортируются, экспортируются обратно (docs/PROBES.md)"
+date = "2026-10-20"
+script = "tools/probes.py"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"
+
+[modbus.status_type_tcp]
+value = "PsIoDrvModbusTcpMaster_OS.ChannelStatus"
+status = "verified_local"
+source = "оракул boiler-plc210: PRG_C2aIoUpdate со значением ChannelStatus.Ok собран против PsIoDrvModbusTcpMaster_OS 1.7.2.60 (docs/TEST_REPORT.md)"
+date = "2026-10-20"
+script = "tools/codesys/xml_oracle.py --ide astra"
+ide_version = "1.7.2.2"
+devices = "11.7.2.60"

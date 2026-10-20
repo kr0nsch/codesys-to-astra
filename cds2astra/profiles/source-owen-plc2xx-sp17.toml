@@ -1,0 +1,55 @@
+# Профиль источника: ОВЕН ПЛК200/ПЛК210, CODESYS V3.5 SP17 Patch 3 (3.5.17.30), таргеты 3.5.17.31–3.5.17.36.
+
+id = "owen-plc2xx-sp17"
+kind = "source"
+title = "ОВЕН ПЛК2xx, CODESYS V3.5 SP17 Patch 3"
+ide = "CODESYS"
+ide_version = "3.5.17.30"
+
+[compiler]
+value = "3.5.17.30"
+status = "documented"
+source = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_Faq_v.3.7.pdf (табл. 7.1)"
+date = "2026-10-19"
+
+[target_nodes]
+value = ["OwenRTC", "OwenCloud", "Buzzer", "Drives", "Network", "Screen", "Debug", "Info", "Watchdog", "PLC2xx", "LeftSide", "RightSide", "BuiltinModem"]
+status = "documented"
+source = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_Targets_v3.4.pdf разд. 4"
+date = "2026-10-19"
+
+[memory.input]
+value = 65536
+status = "documented"
+source = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_Faq_v.3.7.pdf п. 7.29"
+date = "2026-10-19"
+
+[memory.output]
+value = 65536
+status = "documented"
+source = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_Faq_v.3.7.pdf п. 7.29"
+date = "2026-10-19"
+
+[memory.retain]
+value = 65536
+status = "documented"
+source = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_Faq_v.3.7.pdf табл. 7.2 (RETAIN/PERSISTENT 64 КБ в MRAM)"
+date = "2026-10-19"
+
+[tasks.priority_max]
+value = 31
+status = "unknown"
+source = "стандарт CODESYS 0–31; для ОВЕН в документации не найдено (конспект §6)"
+date = "2026-10-19"
+
+[modbus.mx210_clients]
+value = 4
+status = "documented"
+source = "https://owen.ru/product/mv210_101 (РЭ МВ210-101: до 4 клиентов Modbus TCP)"
+date = "2026-10-19"
+
+[libraries.vendor]
+value = ["OwenCommunication", "OwenNet", "OwenVendorProtocols", "OwenStringUtils", "OwenTypes", "CmpSysExec", "CmpOwenPidRegs", "OwenArchiver", "OwenStorage", "OwenCloud", "OwenSnmp", "OwenYandexHome", "OwenVisuDialogs", "OwenVisuTools", "ModulsOwenLib", "MQTT_Client"]
+status = "documented"
+source = "https://ftp.owen.ru/CoDeSys3/04_Library/05_3.5.11.5/02_Libraries/ ; https://ftp.owen.ru/CoDeSys3/03_Targets/OwenTargets-3.5.17.36.txt"
+date = "2026-10-19"

@@ -1,0 +1,49 @@
+# Профиль источника: CODESYS SP18–SP21 — конструкции, которых нет в компиляторе 3.5.17 (поле since).
+# Отдельные профили SP19–SP21 — после 0.1.0 (docs/ROADMAP.md).
+
+id = "codesys-sp18plus"
+kind = "source"
+title = "CODESYS V3.5 SP18–SP21"
+ide = "CODESYS"
+ide_version = "3.5.18–3.5.21"
+
+[constructs.utf8_literal]
+value = "UTF8#'…'"
+since = "3.5.18.0"
+status = "documented"
+source = "https://content.helpme-codesys.com/en/CODESYS%20Development%20System/_cds_operands_constant_string_utf8.html"
+date = "2026-10-19"
+
+[constructs.var_generic]
+value = "VAR_GENERIC CONSTANT"
+since = "3.5.18.0"
+status = "documented"
+source = "https://content.helpme-codesys.com/en/CODESYS%20Development%20System/_cds_vartypes_var_generic_constant.html"
+date = "2026-10-19"
+
+[constructs.partial_bit_access]
+value = ".%Xn/.%Bn/.%Wn/.%Dn/.%Ln"
+since = "3.5.19.0"
+status = "documented"
+source = "https://ftp.owen.ru/CoDeSys3/98_Books/FeaturesAndImprovements/ (Features_And_Improvements-V3.5_SP19-en.pdf)"
+date = "2026-10-19"
+
+[constructs.new_ld]
+value = "LD SP20"
+since = "3.5.20.0"
+status = "documented"
+source = "https://ftp.owen.ru/CoDeSys3/98_Books/FeaturesAndImprovements/ (Features_And_Improvements-V3.5_SP20-en.pdf)"
+date = "2026-10-19"
+
+[constructs.string_libraries]
+value = "CODESYS String Libraries"
+since = "3.5.19.50"
+status = "documented"
+source = "https://content.helpme-codesys.com/en/CODESYS%20String%20Libraries/_strlib_expert_information.html"
+date = "2026-10-19"
+
+[compiler_selection]
+value = "каждая среда содержит компиляторы с 3.5.17.0"
+status = "documented"
+source = "https://content.helpme-codesys.com/en/LibDevSummary/versions.html"
+date = "2026-10-19"
