@@ -21,6 +21,8 @@ env:
   RUSTY_VERSION: v1.0.6
   RUSTY_PLC_SHA256: cee05d9871b7a4dea66ad0e1a3a94cce858d28967c0bdecd16a821e3c621a6bf
   RUSTY_STDLIB_SHA256: 17086c67d46cdba0a6acf8c3c8e3b594804053df3913dab2756ef555cb826129
+  # вывод скриптов по-русски: на windows-latest кодовая страница по умолчанию cp1252
+  PYTHONUTF8: "1"
 
 jobs:
   checks:

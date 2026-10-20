@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -189,7 +190,14 @@ def test_xml_mutations_give_errors_not_crashes(pos: int, n: int, junk: bytes) ->
     ],
 )
 def test_generated_files_up_to_date(script: str) -> None:
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}  # вывод по-русски при любой кодовой странице консоли
     out = subprocess.run(
-        [sys.executable, str(REPO / script), "--check"], capture_output=True, text=True, cwd=REPO, check=False
+        [sys.executable, str(REPO / script), "--check"],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        cwd=REPO,
+        check=False,
+        env=env,
     )
     assert out.returncode == 0, out.stdout + out.stderr
