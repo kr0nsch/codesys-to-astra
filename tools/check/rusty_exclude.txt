@@ -1,0 +1,18 @@
+# Файлы build/assembled/rusty/, которые run_rusty.py не передаёт компилятору RuSTy.
+# Формат: <Имя>.st  # причина (обязательно). Пустые строки и строки с '#' в начале пропускаются.
+#
+# Проект cds2astra (AstraCompat): исключены только расхождения диалектов RuSTy 1.0.6 и CODESYS и то, что от
+# них зависит (разбор — docs/STATIC_ANALYSIS.md, раздел «RuSTy»). Сборка этих объектов проверена в
+# CODESYS 3.5.17.30 и Astra.IDE 1.7.2.2 (docs/TEST_REPORT.md).
+#
+# 1. Библиотеки CODESYS, объявлений которых у RuSTy нет: Util (PID), SysTimeRtc (SysTimeRtcGet), UDINT_TO_DT.
+FB_C2aPid.st  # Util.PID (Util CODESYS)
+FB_C2aRtc.st  # SysTimeRtcGet (SysTimeRtc), UDINT_TO_DT
+# 2. Индексный доступ к символу STRING (sValue[i] -> BYTE) — расширение CODESYS (E059 в RuSTy).
+F_C2aHexStrToWord.st  # sValue[iChar]
+# 3. Зависят от исключённых: экземпляры FB_C2aRtc/FB_C2aPid.
+PRG_C2aSelfTest.st  # FB_C2aRtc, FB_C2aPid, F_C2aHexStrToWord
+FB_C2aTime_Test.st  # FB_C2aRtc
+FB_C2aPid_Test.st  # FB_C2aPid
+FB_C2aStrings_Test.st  # F_C2aHexStrToWord
+PRG_Tests.st  # наборы выше

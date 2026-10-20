@@ -1,0 +1,106 @@
+# cds2astra — перенос проектов CODESYS 3.5 (ОВЕН ПЛК2xx и др.) в Astra.IDE 1.7 (ПЛК REGUL).
+# Ядро пакета — только стандартная библиотека Python (работает и в Pyodide); инструменты tools/ —
+# сборка ST, CODESYS/Astra.IDE из консоли, оракулы импорта. tools/codesys/*.py выполняются и в
+# IronPython 2.7 (ScriptEngine CODESYS и Astra.IDE): для них отключены правила синтаксиса Python 3.
+
+[project]
+name = "cds2astra"
+version = "0.1.0"
+description = "Перенос проектов CODESYS 3.5 (PLCopen XML) в Astra.IDE 1.7 для ПЛК REGUL: правила, замены библиотек, ввод-вывод, отчёт"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{ name = "kr0nsch" }]
+dependencies = []
+
+[project.scripts]
+cds2astra = "cds2astra.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["cds2astra", "cds2astra.*"]
+exclude = ["cds2astra.tests*"]
+
+[tool.setuptools.package-data]
+cds2astra = ["data/**/*.toml", "data/**/*.json", "profiles/*.toml", "profiles/*.json", "schemas/*.json"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["build", "web/node_modules", "web/dist", ".cache", "out"]
+src = [".", "tools", "tools/codesys", "tools/check", "tools/tests"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "C4", "RUF"]
+ignore = [
+    "RUF001", # кириллица в строках (сообщения по-русски) — не опечатка
+    "RUF002", # то же в docstring
+    "RUF003", # то же в комментариях
+]
+
+[tool.ruff.format]
+# Скрипты CODESYS форматируются вручную: форматтер ruff рассчитан на Python 3 и может
+# добавить запятую после *args/**kwargs, а это SyntaxError в IronPython 2.7.
+exclude = ["tools/codesys/*.py", "cds2astra/importers/layout/stlayout.py"]
+
+[tool.ruff.lint.per-file-ignores]
+# Общее подмножество Python 2.7 и 3.x: __future__, "%"-форматирование, class X(object),
+# без f-строк, распаковки [*a], raise ... from, contextlib.suppress
+"tools/codesys/*.py" = ["UP", "SIM", "C4", "B904", "RUF005", "RUF012"]
+# Копия stlayout.py шаблона (тот же синтаксис 2.7/3.x, файл не правится — сверка с tools/codesys/stlayout.py)
+"cds2astra/importers/layout/stlayout.py" = ["UP", "SIM", "C4", "B904", "RUF005", "RUF012"]
+# Фикстуры с исходниками ST и XML в строках, шаблоны генераторов корпусов, CSS отчёта
+"cds2astra/tests/*.py" = ["E501"]
+"tools/corpus/*.py" = ["E501", "SIM108"]
+"cds2astra/emit/report.py" = ["E501"]
+# Копия stsim.py s7-to-codesys @ 2285760 (MIT, тот же автор): файл не правится
+"tools/sim/stsim.py" = ["SIM108"]
+"tools/tests/*.py" = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["cds2astra", "tools"]
+mypy_path = ["tools", "tools/codesys", "tools/check"]
+strict = true
+warn_unreachable = true
+# cdshost управляет CODESYS и рантаймом только в Windows: mypy и в Linux-CI проверяет код как для
+# win32, иначе код после проверок `sys.platform != "win32"` считается недостижимым.
+platform = "win32"
+# Скрипты CODESYS (IronPython 2.7) используют глобальные объекты среды (projects, system, ...),
+# mypy их не знает. stlayout.py проверяется: он типизирован комментариями.
+exclude = [
+    '^tools/codesys/(?!stlayout\.py$)[^/]*\.py$',
+    '^tools/tests/fixtures/',
+    # тесты пакета проверяет pytest; mypy — пакет и tools/ (два conftest.py с одним именем модуля)
+    '^cds2astra/tests/',
+    '^web/',
+]
+
+[tool.pytest.ini_options]
+testpaths = ["cds2astra/tests", "tools/tests"]
+pythonpath = [".", "tools", "tools/codesys", "tools/check"]
+addopts = "-ra --strict-markers"
+markers = [
+    "integration: проверки с настоящими plc (RuSTy) и iec_checker; пропускаются, если инструмента нет",
+    "network: тест скачивает публичный образец по SHA коммита в .cache/; без сети — пропуск",
+    "ide: результаты прогонов Astra.IDE / CODESYS (build/oracle); без файлов — пропуск",
+]
+
+[tool.coverage.run]
+source = ["cds2astra"]
+omit = ["cds2astra/tests/*"]
+branch = true
+
+[tool.coverage.report]
+show_missing = false
+skip_covered = true
+
+[tool.ruff.lint.isort]
+known-first-party = ["cds2astra", "conftest", "cdshost", "fetch_samples", "stlayout", "cds_common"]
+
+[tool.ruff.lint.pycodestyle]
+# Строки сообщений по-русски длиннее кода: формат — 120, предел E501 — 140 (длинные литералы не переносим)
+max-line-length = 140
