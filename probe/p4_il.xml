@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="plc-portfolio" productName="cds2astra probe" productVersion="0.1.0" creationDateTime="2026-10-20T00:00:00" />
+  <contentHeader name="probe" modificationDateTime="2026-10-20T00:00:00">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous>
+      <pou name="PRG_P4" pouType="program">
+        <interface>
+          <localVars>
+            <variable name="xA">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+            <variable name="xQ">
+              <type>
+                <BOOL />
+              </type>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <IL>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">LD xA
+NOT
+ST xQ
+</xhtml>
+          </IL>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+            <InterfaceAsPlainText>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml">PROGRAM PRG_P4
+VAR
+    xA : BOOL;
+    xQ : BOOL;
+END_VAR
+</xhtml>
+            </InterfaceAsPlainText>
+          </data>
+        </addData>
+      </pou>
+    </pous>
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+</project>

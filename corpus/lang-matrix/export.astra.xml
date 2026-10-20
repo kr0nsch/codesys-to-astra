@@ -1,0 +1,1345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="Prosoft-Systems Ltd." productName="Astra.IDE" productVersion="Astra.IDE_V1.7.2.2" creationDateTime="2026-10-20T02:17:37.4675569" />
+  <contentHeader name="astra-P5-langmatrix-app.project" modificationDateTime="1601-01-01T03:00:00">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/application" handleUnknown="implementation">
+      <resource name="Application">
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_LangSt" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="xA">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xB">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xQ">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="iLevel">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xHigh">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="wCode">
+                    <type>
+                      <WORD />
+                    </type>
+                  </variable>
+                  <variable name="sHex">
+                    <type>
+                      <string />
+                    </type>
+                  </variable>
+                  <variable name="fbTon">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="fbHyst">
+                    <type>
+                      <derived name="HYSTERESIS" />
+                    </type>
+                  </variable>
+                  <addData>
+                    <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                      <InterfaceAsPlainText>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: ST
+PROGRAM PRG_LangSt
+VAR
+    xA : BOOL;
+    xB : BOOL;
+    xQ : BOOL;
+    xDone : BOOL;
+    iLevel : INT;
+    xHigh : BOOL;
+    wCode : WORD;
+    sHex : STRING;
+    fbTon : TON;
+    fbHyst : HYSTERESIS;
+END_VAR
+</xhtml>
+                      </InterfaceAsPlainText>
+                    </data>
+                  </addData>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml"> lang-matrix: ST</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// Standard: TON; Util: HYSTERESIS; блок под замену: OSU.WORD_TO_HEX_STR (OwenStringUtils)
+xQ := xA AND xB;
+fbTon(IN := xQ, PT := T#100MS);
+xDone := fbTon.Q;
+fbHyst(IN := iLevel, HIGH := 80, LOW := 20, OUT =&gt; xHigh);
+sHex := OSU.WORD_TO_HEX_STR(wInput := wCode, xUpperCase := TRUE, sPrefix := '0x');
+</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: ST
+PROGRAM PRG_LangSt
+VAR
+    xA : BOOL;
+    xB : BOOL;
+    xQ : BOOL;
+    xDone : BOOL;
+    iLevel : INT;
+    xHigh : BOOL;
+    wCode : WORD;
+    sHex : STRING;
+    fbTon : TON;
+    fbHyst : HYSTERESIS;
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>d563afc4-073e-4850-9a39-48fc332cc7c3</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_LangFbd" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="xA">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xB">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xQ">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="iLevel">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xHigh">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="wCode">
+                    <type>
+                      <WORD />
+                    </type>
+                  </variable>
+                  <variable name="sHex">
+                    <type>
+                      <string />
+                    </type>
+                  </variable>
+                  <variable name="fbTon">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="fbHyst">
+                    <type>
+                      <derived name="HYSTERESIS" />
+                    </type>
+                  </variable>
+                  <addData>
+                    <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                      <InterfaceAsPlainText>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: FBD
+PROGRAM PRG_LangFbd
+VAR
+    xA : BOOL;
+    xB : BOOL;
+    xQ : BOOL;
+    xDone : BOOL;
+    iLevel : INT;
+    xHigh : BOOL;
+    wCode : WORD;
+    sHex : STRING;
+    fbTon : TON;
+    fbHyst : HYSTERESIS;
+END_VAR
+</xhtml>
+                      </InterfaceAsPlainText>
+                    </data>
+                  </addData>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml"> lang-matrix: FBD</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <FBD>
+                  <vendorElement localId="10000000000">
+                    <position x="0" y="0" />
+                    <alternativeText>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml">FBD Implementation Attributes</xhtml>
+                    </alternativeText>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/fbd/implementationattributes" handleUnknown="implementation">
+                        <fbdattributes xmlns="">
+                          <attribute name="BoxInputFlagsSupported" value="true" />
+                        </fbdattributes>
+                      </data>
+                    </addData>
+                  </vendorElement>
+                  <inVariable localId="10000000001">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>xA</expression>
+                  </inVariable>
+                  <inVariable localId="10000000002">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>xB</expression>
+                  </inVariable>
+                  <block localId="10000000003" typeName="AND">
+                    <position x="0" y="0" />
+                    <inputVariables>
+                      <variable formalParameter="In1">
+                        <connectionPointIn>
+                          <connection refLocalId="10000000001" />
+                        </connectionPointIn>
+                      </variable>
+                      <variable formalParameter="In2">
+                        <connectionPointIn>
+                          <connection refLocalId="10000000002" />
+                        </connectionPointIn>
+                      </variable>
+                    </inputVariables>
+                    <inOutVariables />
+                    <outputVariables>
+                      <variable formalParameter="Out1">
+                        <connectionPointOut />
+                      </variable>
+                    </outputVariables>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                        <CallType xmlns="">operator</CallType>
+                      </data>
+                      <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                        <InputParamTypes xmlns="" />
+                      </data>
+                      <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                        <OutputParamTypes xmlns="" />
+                      </data>
+                    </addData>
+                  </block>
+                  <outVariable localId="10000000004">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="10000000003" formalParameter="Out1" />
+                    </connectionPointIn>
+                    <expression>xQ</expression>
+                  </outVariable>
+                  <inVariable localId="20000000000">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>xQ</expression>
+                  </inVariable>
+                  <inVariable localId="20000000001">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>T#100MS</expression>
+                  </inVariable>
+                  <block localId="20000000002" typeName="TON" instanceName="fbTon">
+                    <position x="0" y="0" />
+                    <inputVariables>
+                      <variable formalParameter="IN">
+                        <connectionPointIn>
+                          <connection refLocalId="20000000000" />
+                        </connectionPointIn>
+                      </variable>
+                      <variable formalParameter="PT">
+                        <connectionPointIn>
+                          <connection refLocalId="20000000001" />
+                        </connectionPointIn>
+                      </variable>
+                    </inputVariables>
+                    <inOutVariables />
+                    <outputVariables>
+                      <variable formalParameter="Q">
+                        <connectionPointOut />
+                      </variable>
+                      <variable formalParameter="ET">
+                        <connectionPointOut>
+                          <expression />
+                        </connectionPointOut>
+                      </variable>
+                    </outputVariables>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                        <CallType xmlns="">functionblock</CallType>
+                      </data>
+                      <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                        <InputParamTypes xmlns="" />
+                      </data>
+                      <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                        <OutputParamTypes xmlns="" />
+                      </data>
+                    </addData>
+                  </block>
+                  <outVariable localId="20000000003">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="20000000002" formalParameter="Q" />
+                    </connectionPointIn>
+                    <expression>xDone</expression>
+                  </outVariable>
+                  <inVariable localId="30000000000">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>iLevel</expression>
+                  </inVariable>
+                  <inVariable localId="30000000001">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>80</expression>
+                  </inVariable>
+                  <inVariable localId="30000000002">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>20</expression>
+                  </inVariable>
+                  <block localId="30000000003" typeName="HYSTERESIS" instanceName="fbHyst">
+                    <position x="0" y="0" />
+                    <inputVariables>
+                      <variable formalParameter="IN">
+                        <connectionPointIn>
+                          <connection refLocalId="30000000000" />
+                        </connectionPointIn>
+                      </variable>
+                      <variable formalParameter="HIGH">
+                        <connectionPointIn>
+                          <connection refLocalId="30000000001" />
+                        </connectionPointIn>
+                      </variable>
+                      <variable formalParameter="LOW">
+                        <connectionPointIn>
+                          <connection refLocalId="30000000002" />
+                        </connectionPointIn>
+                      </variable>
+                    </inputVariables>
+                    <inOutVariables />
+                    <outputVariables>
+                      <variable formalParameter="OUT">
+                        <connectionPointOut />
+                      </variable>
+                    </outputVariables>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                        <CallType xmlns="">functionblock</CallType>
+                      </data>
+                      <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                        <InputParamTypes xmlns="" />
+                      </data>
+                      <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                        <OutputParamTypes xmlns="" />
+                      </data>
+                    </addData>
+                  </block>
+                  <outVariable localId="30000000004">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="30000000003" formalParameter="OUT" />
+                    </connectionPointIn>
+                    <expression>xHigh</expression>
+                  </outVariable>
+                  <inVariable localId="40000000000">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>wCode</expression>
+                  </inVariable>
+                  <inVariable localId="40000000001">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>TRUE</expression>
+                  </inVariable>
+                  <inVariable localId="40000000002">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>'0x'</expression>
+                  </inVariable>
+                  <block localId="40000000003" typeName="OSU.WORD_TO_HEX_STR">
+                    <position x="0" y="0" />
+                    <inputVariables>
+                      <variable formalParameter="wInput">
+                        <connectionPointIn>
+                          <connection refLocalId="40000000000" />
+                        </connectionPointIn>
+                      </variable>
+                      <variable formalParameter="xUpperCase">
+                        <connectionPointIn>
+                          <connection refLocalId="40000000001" />
+                        </connectionPointIn>
+                      </variable>
+                      <variable formalParameter="sPrefix">
+                        <connectionPointIn>
+                          <connection refLocalId="40000000002" />
+                        </connectionPointIn>
+                      </variable>
+                    </inputVariables>
+                    <inOutVariables />
+                    <outputVariables>
+                      <variable formalParameter="WORD_TO_HEX_STR">
+                        <connectionPointOut />
+                      </variable>
+                    </outputVariables>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                        <CallType xmlns="">function</CallType>
+                      </data>
+                      <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                        <InputParamTypes xmlns="" />
+                      </data>
+                      <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                        <OutputParamTypes xmlns="" />
+                      </data>
+                    </addData>
+                  </block>
+                  <outVariable localId="40000000004">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="40000000003" formalParameter="WORD_TO_HEX_STR" />
+                    </connectionPointIn>
+                    <expression>sHex</expression>
+                  </outVariable>
+                </FBD>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: FBD
+PROGRAM PRG_LangFbd
+VAR
+    xA : BOOL;
+    xB : BOOL;
+    xQ : BOOL;
+    xDone : BOOL;
+    iLevel : INT;
+    xHigh : BOOL;
+    wCode : WORD;
+    sHex : STRING;
+    fbTon : TON;
+    fbHyst : HYSTERESIS;
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>9d003496-ec72-49d7-84b2-757c6d889971</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_LangLd" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="xA">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xB">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xQ">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <addData>
+                    <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                      <InterfaceAsPlainText>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: LD
+PROGRAM PRG_LangLd
+VAR
+    xA : BOOL;
+    xB : BOOL;
+    xQ : BOOL;
+END_VAR
+</xhtml>
+                      </InterfaceAsPlainText>
+                    </data>
+                  </addData>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml"> lang-matrix: LD</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <LD>
+                  <leftPowerRail localId="0">
+                    <position x="0" y="0" />
+                    <connectionPointOut formalParameter="none" />
+                  </leftPowerRail>
+                  <comment localId="1" height="0" width="0">
+                    <position x="0" y="0" />
+                    <content>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                    </content>
+                  </comment>
+                  <vendorElement localId="2">
+                    <position x="0" y="0" />
+                    <alternativeText>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                    </alternativeText>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                        <ElementType xmlns="">networktitle</ElementType>
+                      </data>
+                    </addData>
+                  </vendorElement>
+                  <contact localId="3" negated="false" storage="none" edge="none">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="0" />
+                    </connectionPointIn>
+                    <connectionPointOut />
+                    <variable>xA</variable>
+                  </contact>
+                  <contact localId="4" negated="false" storage="none" edge="none">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="3" />
+                    </connectionPointIn>
+                    <connectionPointOut />
+                    <variable>xB</variable>
+                  </contact>
+                  <coil localId="5" negated="false" storage="none">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="4" />
+                    </connectionPointIn>
+                    <connectionPointOut />
+                    <variable>xQ</variable>
+                  </coil>
+                  <rightPowerRail localId="2147483646">
+                    <position x="0" y="0" />
+                    <connectionPointIn />
+                  </rightPowerRail>
+                </LD>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: LD
+PROGRAM PRG_LangLd
+VAR
+    xA : BOOL;
+    xB : BOOL;
+    xQ : BOOL;
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>92fea32f-02b1-4d6f-9897-d6c351e8ce82</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_LangCfc" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="xA">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xB">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xQ">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="iLevel">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xHigh">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="wCode">
+                    <type>
+                      <WORD />
+                    </type>
+                  </variable>
+                  <variable name="sHex">
+                    <type>
+                      <string />
+                    </type>
+                  </variable>
+                  <variable name="fbTon">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="fbHyst">
+                    <type>
+                      <derived name="HYSTERESIS" />
+                    </type>
+                  </variable>
+                  <addData>
+                    <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                      <InterfaceAsPlainText>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: CFC
+PROGRAM PRG_LangCfc
+VAR
+    xA : BOOL;
+    xB : BOOL;
+    xQ : BOOL;
+    xDone : BOOL;
+    iLevel : INT;
+    xHigh : BOOL;
+    wCode : WORD;
+    sHex : STRING;
+    fbTon : TON;
+    fbHyst : HYSTERESIS;
+END_VAR
+</xhtml>
+                      </InterfaceAsPlainText>
+                    </data>
+                  </addData>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml"> lang-matrix: CFC</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                </ST>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/cfc" handleUnknown="implementation">
+                    <CFC>
+                      <inVariable localId="3">
+                        <position x="0" y="0" />
+                        <connectionPointOut>
+                          <expression />
+                        </connectionPointOut>
+                        <expression>wCode</expression>
+                      </inVariable>
+                      <connector localId="2" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="3" formalParameter="wCode" />
+                        </connectionPointIn>
+                      </connector>
+                      <inVariable localId="5">
+                        <position x="0" y="0" />
+                        <connectionPointOut>
+                          <expression />
+                        </connectionPointOut>
+                        <expression>TRUE</expression>
+                      </inVariable>
+                      <connector localId="4" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="5" formalParameter="TRUE" />
+                        </connectionPointIn>
+                      </connector>
+                      <inVariable localId="7">
+                        <position x="0" y="0" />
+                        <connectionPointOut>
+                          <expression />
+                        </connectionPointOut>
+                        <expression>'0x'</expression>
+                      </inVariable>
+                      <connector localId="6" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="7" formalParameter="'0x'" />
+                        </connectionPointIn>
+                      </connector>
+                      <block localId="1" executionOrderId="5" typeName="OSU.WORD_TO_HEX_STR">
+                        <position x="0" y="0" />
+                        <inputVariables>
+                          <variable formalParameter="wInput">
+                            <connectionPointIn>
+                              <relPosition x="0" y="0" />
+                              <connection refLocalId="2" />
+                            </connectionPointIn>
+                          </variable>
+                          <variable formalParameter="xUpperCase">
+                            <connectionPointIn>
+                              <relPosition x="0" y="1" />
+                              <connection refLocalId="4" />
+                            </connectionPointIn>
+                          </variable>
+                          <variable formalParameter="sPrefix">
+                            <connectionPointIn>
+                              <relPosition x="0" y="2" />
+                              <connection refLocalId="6" />
+                            </connectionPointIn>
+                          </variable>
+                        </inputVariables>
+                        <inOutVariables />
+                        <outputVariables>
+                          <variable formalParameter="WORD_TO_HEX_STR">
+                            <connectionPointOut>
+                              <relPosition x="0" y="0" />
+                              <expression />
+                            </connectionPointOut>
+                          </variable>
+                        </outputVariables>
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/cfccalltype" handleUnknown="implementation">
+                            <CallType xmlns="">function</CallType>
+                          </data>
+                        </addData>
+                      </block>
+                      <connector localId="0" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="1" formalParameter="WORD_TO_HEX_STR" />
+                        </connectionPointIn>
+                      </connector>
+                      <inVariable localId="11">
+                        <position x="0" y="0" />
+                        <connectionPointOut>
+                          <expression />
+                        </connectionPointOut>
+                        <expression>iLevel</expression>
+                      </inVariable>
+                      <connector localId="10" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="11" formalParameter="iLevel" />
+                        </connectionPointIn>
+                      </connector>
+                      <inVariable localId="13">
+                        <position x="0" y="0" />
+                        <connectionPointOut>
+                          <expression />
+                        </connectionPointOut>
+                        <expression>80</expression>
+                      </inVariable>
+                      <connector localId="12" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="13" formalParameter="80" />
+                        </connectionPointIn>
+                      </connector>
+                      <inVariable localId="15">
+                        <position x="0" y="0" />
+                        <connectionPointOut>
+                          <expression />
+                        </connectionPointOut>
+                        <expression>20</expression>
+                      </inVariable>
+                      <connector localId="14" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="15" formalParameter="20" />
+                        </connectionPointIn>
+                      </connector>
+                      <block localId="9" executionOrderId="3" typeName="HYSTERESIS" instanceName="fbHyst">
+                        <position x="0" y="0" />
+                        <inputVariables>
+                          <variable formalParameter="IN">
+                            <connectionPointIn>
+                              <relPosition x="0" y="0" />
+                              <connection refLocalId="10" />
+                            </connectionPointIn>
+                          </variable>
+                          <variable formalParameter="HIGH">
+                            <connectionPointIn>
+                              <relPosition x="0" y="1" />
+                              <connection refLocalId="12" />
+                            </connectionPointIn>
+                          </variable>
+                          <variable formalParameter="LOW">
+                            <connectionPointIn>
+                              <relPosition x="0" y="2" />
+                              <connection refLocalId="14" />
+                            </connectionPointIn>
+                          </variable>
+                        </inputVariables>
+                        <inOutVariables />
+                        <outputVariables>
+                          <variable formalParameter="OUT">
+                            <connectionPointOut>
+                              <relPosition x="0" y="0" />
+                              <expression />
+                            </connectionPointOut>
+                          </variable>
+                        </outputVariables>
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/cfccalltype" handleUnknown="implementation">
+                            <CallType xmlns="">functionblock</CallType>
+                          </data>
+                        </addData>
+                      </block>
+                      <connector localId="8" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="9" formalParameter="OUT" />
+                        </connectionPointIn>
+                      </connector>
+                      <inVariable localId="19">
+                        <position x="0" y="0" />
+                        <connectionPointOut>
+                          <expression />
+                        </connectionPointOut>
+                        <expression>xQ</expression>
+                      </inVariable>
+                      <connector localId="18" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="19" formalParameter="xQ" />
+                        </connectionPointIn>
+                      </connector>
+                      <inVariable localId="21">
+                        <position x="0" y="0" />
+                        <connectionPointOut>
+                          <expression />
+                        </connectionPointOut>
+                        <expression>T#100MS</expression>
+                      </inVariable>
+                      <connector localId="20" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="21" formalParameter="T#100MS" />
+                        </connectionPointIn>
+                      </connector>
+                      <block localId="17" executionOrderId="1" typeName="TON" instanceName="fbTon">
+                        <position x="0" y="0" />
+                        <inputVariables>
+                          <variable formalParameter="IN">
+                            <connectionPointIn>
+                              <relPosition x="0" y="0" />
+                              <connection refLocalId="18" />
+                            </connectionPointIn>
+                          </variable>
+                          <variable formalParameter="PT">
+                            <connectionPointIn>
+                              <relPosition x="0" y="1" />
+                              <connection refLocalId="20" />
+                            </connectionPointIn>
+                          </variable>
+                        </inputVariables>
+                        <inOutVariables />
+                        <outputVariables>
+                          <variable formalParameter="Q">
+                            <connectionPointOut>
+                              <relPosition x="0" y="0" />
+                              <expression />
+                            </connectionPointOut>
+                          </variable>
+                          <variable formalParameter="ET">
+                            <connectionPointOut>
+                              <relPosition x="0" y="1" />
+                              <expression />
+                            </connectionPointOut>
+                          </variable>
+                        </outputVariables>
+                        <addData>
+                          <data name="http://www.3s-software.com/plcopenxml/cfccalltype" handleUnknown="implementation">
+                            <CallType xmlns="">functionblock</CallType>
+                          </data>
+                        </addData>
+                      </block>
+                      <connector localId="16" name="">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <connection refLocalId="17" formalParameter="Q" />
+                        </connectionPointIn>
+                      </connector>
+                      <outVariable localId="22" executionOrderId="2">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <relPosition x="0" y="0" />
+                          <connection refLocalId="16" />
+                        </connectionPointIn>
+                        <expression>xDone</expression>
+                      </outVariable>
+                      <outVariable localId="23" executionOrderId="4">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <relPosition x="0" y="0" />
+                          <connection refLocalId="8" />
+                        </connectionPointIn>
+                        <expression>xHigh</expression>
+                      </outVariable>
+                      <outVariable localId="24" executionOrderId="6">
+                        <position x="0" y="0" />
+                        <connectionPointIn>
+                          <relPosition x="0" y="0" />
+                          <connection refLocalId="0" />
+                        </connectionPointIn>
+                        <expression>sHex</expression>
+                      </outVariable>
+                    </CFC>
+                  </data>
+                </addData>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: CFC
+PROGRAM PRG_LangCfc
+VAR
+    xA : BOOL;
+    xB : BOOL;
+    xQ : BOOL;
+    xDone : BOOL;
+    iLevel : INT;
+    xHigh : BOOL;
+    wCode : WORD;
+    sHex : STRING;
+    fbTon : TON;
+    fbHyst : HYSTERESIS;
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>8925cc47-9f94-4434-83ef-a9eae5d09b83</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_LangSfc" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="xA">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xB">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xQ">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="iLevel">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xHigh">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="wCode">
+                    <type>
+                      <WORD />
+                    </type>
+                  </variable>
+                  <variable name="sHex">
+                    <type>
+                      <string />
+                    </type>
+                  </variable>
+                  <variable name="fbTon">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="fbHyst">
+                    <type>
+                      <derived name="HYSTERESIS" />
+                    </type>
+                  </variable>
+                  <addData>
+                    <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                      <InterfaceAsPlainText>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: SFC
+PROGRAM PRG_LangSfc
+VAR
+    xA : BOOL;
+    xB : BOOL;
+    xQ : BOOL;
+    xDone : BOOL;
+    iLevel : INT;
+    xHigh : BOOL;
+    wCode : WORD;
+    sHex : STRING;
+    fbTon : TON;
+    fbHyst : HYSTERESIS;
+END_VAR
+</xhtml>
+                      </InterfaceAsPlainText>
+                    </data>
+                  </addData>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml"> lang-matrix: SFC</xhtml>
+                </documentation>
+              </interface>
+              <actions>
+                <action name="ActRun">
+                  <body>
+                    <ST>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml">fbTon(IN := TRUE, PT := T#100MS);
+xDone := fbTon.Q;
+fbHyst(IN := iLevel, HIGH := 80, LOW := 20, OUT =&gt; xHigh);
+sHex := OSU.WORD_TO_HEX_STR(wInput := wCode, xUpperCase := TRUE, sPrefix := '0x');
+</xhtml>
+                    </ST>
+                  </body>
+                  <addData>
+                    <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                      <ObjectId>39bd80cf-deb9-4a7c-b721-2b70801001c0</ObjectId>
+                    </data>
+                  </addData>
+                </action>
+              </actions>
+              <body>
+                <SFC>
+                  <step localId="0" initialStep="true" name="Init">
+                    <position x="0" y="0" />
+                    <connectionPointIn />
+                    <connectionPointOut formalParameter="sfc" />
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                        <attributes xmlns="">
+                          <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
+                          <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                          <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                          <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">TRUE</attribute>
+                          <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                        </attributes>
+                      </data>
+                    </addData>
+                  </step>
+                  <inVariable localId="1">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>xA AND xB</expression>
+                  </inVariable>
+                  <transition localId="2">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="0" formalParameter="sfc" />
+                    </connectionPointIn>
+                    <condition>
+                      <connectionPointIn>
+                        <connection refLocalId="1" />
+                      </connectionPointIn>
+                    </condition>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                        <attributes xmlns="">
+                          <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">xA AND xB</attribute>
+                          <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                          <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                          <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          <attribute guid="8294df19-5962-4dee-a874-1051dabb0e3e">0</attribute>
+                        </attributes>
+                      </data>
+                    </addData>
+                  </transition>
+                  <step localId="3" name="Run">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="2" />
+                    </connectionPointIn>
+                    <connectionPointOut formalParameter="sfc" />
+                    <connectionPointOutAction formalParameter="x" />
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                        <attributes xmlns="">
+                          <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Run</attribute>
+                          <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                          <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                          <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
+                          <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                        </attributes>
+                      </data>
+                    </addData>
+                  </step>
+                  <actionBlock localId="5">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="3" />
+                    </connectionPointIn>
+                    <action localId="4" qualifier="N" duration="" indicator="">
+                      <relPosition x="0" y="0" />
+                      <reference name="ActRun" />
+                      <connectionPointOut />
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                          <attributes xmlns="">
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">ActRun</attribute>
+                            <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                            <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                            <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">N</attribute>
+                          </attributes>
+                        </data>
+                      </addData>
+                    </action>
+                  </actionBlock>
+                  <inVariable localId="6">
+                    <position x="0" y="0" />
+                    <connectionPointOut />
+                    <expression>xDone</expression>
+                  </inVariable>
+                  <transition localId="7">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="3" formalParameter="sfc" />
+                    </connectionPointIn>
+                    <condition>
+                      <connectionPointIn>
+                        <connection refLocalId="6" />
+                      </connectionPointIn>
+                    </condition>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                        <attributes xmlns="">
+                          <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">xDone</attribute>
+                          <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                          <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
+                          <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
+                          <attribute guid="8294df19-5962-4dee-a874-1051dabb0e3e">0</attribute>
+                        </attributes>
+                      </data>
+                    </addData>
+                  </transition>
+                  <jumpStep localId="8" targetName="Init">
+                    <position x="0" y="0" />
+                    <connectionPointIn>
+                      <connection refLocalId="7" />
+                    </connectionPointIn>
+                    <addData>
+                      <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
+                        <attributes xmlns="">
+                          <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
+                          <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
+                        </attributes>
+                      </data>
+                    </addData>
+                  </jumpStep>
+                </SFC>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/sfcsettings" handleUnknown="implementation">
+                  <SFCSettings>
+                    <LibTitle>IecSfc</LibTitle>
+                    <LibCompany>System</LibCompany>
+                    <LibVersion>4.1.0.0</LibVersion>
+                    <LibNamespace>IecSfc</LibNamespace>
+                    <CalcActiveTransOnly>false</CalcActiveTransOnly>
+                    <UseDefaults>false</UseDefaults>
+                    <Flags>
+                      <EnableLimit Declare="true" Use="false" />
+                      <Init Declare="true" Use="false" />
+                      <Reset Declare="true" Use="false" />
+                      <QuitError Declare="true" Use="false" />
+                      <Pause Declare="true" Use="false" />
+                      <Error Declare="true" Use="false" />
+                      <Trans Declare="true" Use="false" />
+                      <ErrorStep Declare="true" Use="false" />
+                      <ErrorPOU Declare="true" Use="false" />
+                      <CurrentStep Declare="true" Use="false" />
+                      <Tip Declare="true" Use="false" />
+                      <TipMode Declare="true" Use="false" />
+                      <MaxFlags Declare="true" Use="false" />
+                      <SFCErrorAnalyzation Declare="true" Use="false" />
+                      <SFCErrorAnalyzationTable Declare="true" Use="false" />
+                      <CurrentSteps Declare="true" Use="false" />
+                    </Flags>
+                  </SFCSettings>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: SFC
+PROGRAM PRG_LangSfc
+VAR
+    xA : BOOL;
+    xB : BOOL;
+    xQ : BOOL;
+    xDone : BOOL;
+    iLevel : INT;
+    xHigh : BOOL;
+    wCode : WORD;
+    sHex : STRING;
+    fbTon : TON;
+    fbHyst : HYSTERESIS;
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>cb16cd18-3337-4d3a-b6d3-80b9ad07a023</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_LangMain" pouType="program">
+              <interface>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml"> lang-matrix: вызов всех POU</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// Вызов POU всех языков матрицы
+PRG_LangSt();
+PRG_LangFbd();
+PRG_LangLd();
+PRG_LangCfc();
+PRG_LangSfc();
+PRG_LangIl();
+</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">// lang-matrix: вызов всех POU
+PROGRAM PRG_LangMain
+VAR
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>0f666c6f-1be5-4ae9-b29d-d2376cb0aa17</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+            <Libraries>
+              <Library Name="#IoStandard" Namespace="IoStandard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="true" DefaultResolution="IoStandard, 3.5.17.0 (System)" />
+              <Library Name="#3SLicense" Namespace="_3S_LICENSE" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="3SLicense, 0.0.0.0 (3S - Smart Software Solutions GmbH)" ResolverGuid="97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b" />
+              <Library Name="#CDS_MemMan" Namespace="CMM" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="CDS_MemMan, 3.3.2.0 (3S - Smart Software Solutions GmbH)" />
+              <Library Name="#BreakpointLogging" Namespace="BPLog" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Breakpoint Logging Functions, 3.5.5.0 (3S - Smart Software Solutions GmbH)" />
+              <Library Name="#Standard" Namespace="Standard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Standard, * (System)" />
+              <Library Name="#Util" Namespace="Util" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Util, * (System)">
+                <Parameters>
+                  <Parameter Name="IBLOCKSIZE" Value="22800" />
+                </Parameters>
+              </Library>
+              <Library Name="#IecSfc" Namespace="IecSfc" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="IecSfc, 4.1.0.0 (System)" />
+              <Library Name="#Analyzation" Namespace="Analyzation" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Analyzation, 4.1.0.0 (System)">
+                <Parameters>
+                  <Parameter Name="TABLE_UPPER_BOUND" Value="15" />
+                  <Parameter Name="STRING_LENGTH_EXP" Value="255" />
+                  <Parameter Name="STRING_LENGTH_ADDRESS" Value="20" />
+                  <Parameter Name="STRING_LENGTH_COMMENT" Value="255" />
+                  <Parameter Name="STRING_LENGTH_OUTSTRING" Value="255" />
+                  <Parameter Name="TABLE_SHOW_VALID_ITEMS" Value="FALSE" />
+                </Parameters>
+              </Library>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>5fec785b-838a-4db9-befc-d6424de97a82</ObjectId>
+                </data>
+              </addData>
+            </Libraries>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>7b37d399-ba4c-4ab4-9392-68942ea4e55d</ObjectId>
+          </data>
+        </addData>
+      </resource>
+    </data>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="Application" ObjectId="7b37d399-ba4c-4ab4-9392-68942ea4e55d">
+          <Object Name="Менеджер библиотек" ObjectId="5fec785b-838a-4db9-befc-d6424de97a82" />
+          <Object Name="PRG_LangSt" ObjectId="d563afc4-073e-4850-9a39-48fc332cc7c3" />
+          <Object Name="PRG_LangFbd" ObjectId="9d003496-ec72-49d7-84b2-757c6d889971" />
+          <Object Name="PRG_LangLd" ObjectId="92fea32f-02b1-4d6f-9897-d6c351e8ce82" />
+          <Object Name="PRG_LangCfc" ObjectId="8925cc47-9f94-4434-83ef-a9eae5d09b83" />
+          <Object Name="PRG_LangSfc" ObjectId="cb16cd18-3337-4d3a-b6d3-80b9ad07a023">
+            <Object Name="ActRun" ObjectId="39bd80cf-deb9-4a7c-b721-2b70801001c0" />
+          </Object>
+          <Object Name="PRG_LangMain" ObjectId="0f666c6f-1be5-4ae9-b29d-d2376cb0aa17" />
+        </Object>
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>
