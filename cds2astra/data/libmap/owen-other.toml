@@ -1,0 +1,110 @@
+# Прочие библиотеки ОВЕН: готовой замены нет (C2A-LIB001 -> todo), подсказка — из таблицы замен конспекта §5.3.
+# Каждая запись — библиотека целиком (pou = "*").
+
+[library]
+name = "owen-other"
+namespace = ""
+replacement = ""
+source_url = "https://ftp.owen.ru/CoDeSys3/04_Library/05_3.5.11.5/02_Libraries/"
+
+[[pou]]
+library = "OwenCommunication"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_Modbus_v3.2.pdf"
+confidence = "H"
+note = "работает только на контроллерах ОВЕН; на REGUL — Modbus TCP/Serial Master (OS) + Outer Slave + каналы (DPA-302.1)"
+
+[[pou]]
+library = "ModulsOwenLib"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/04_Library/05_3.5.11.5/02_Libraries/"
+confidence = "M"
+note = "опрос модулей ОВЕН — каналы Modbus REGUL и FB_C2aMbUnpack"
+
+[[pou]]
+library = "OwenNet"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/04_Library/05_3.5.11.5/02_Libraries/"
+confidence = "M"
+note = "протокол ОВЕН по RS-485: своя реализация на SysCom / CAA SerialCom"
+
+[[pou]]
+library = "OwenVendorProtocols"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenVendorProtocols_v2.9.pdf"
+confidence = "M"
+note = "SysCom, SysSocket, CAA SerialCom, CAA NetBaseSrv; статистика COM — PsSysSerial"
+
+[[pou]]
+library = "CmpSysExec"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/03_Targets/OwenTargets-3.5.17.36.txt"
+confidence = "M"
+note = "вызов команд ОС — аналога на REGUL нет (оболочка ПЛК доступна только инженеру)"
+
+[[pou]]
+library = "OwenArchiver"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/04_Library/05_3.5.11.5/01_Components/"
+confidence = "M"
+note = "SysFile / CAA File + PsSysFile"
+
+[[pou]]
+library = "OwenStorage"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/03_Targets/OwenTargets-3.5.17.36.txt"
+confidence = "M"
+note = "SysFile / CAA File + PsSysFile"
+
+[[pou]]
+library = "OwenCloud"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/04_Library/05_3.5.11.5/01_Components/"
+confidence = "M"
+
+[[pou]]
+library = "OwenSnmp"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/04_Library/05_3.5.11.5/02_Libraries/"
+confidence = "M"
+note = "SNMP на REGUL — системная служба, не библиотека"
+
+[[pou]]
+library = "MQTT_Client"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/04_Library/05_3.5.11.5/02_Libraries/"
+confidence = "M"
+note = "MQTT — своя реализация на SysSocket или шлюз"
+
+[[pou]]
+library = "OwenVisuDialogs"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/04_Library/05_3.5.11.5/02_Libraries/"
+confidence = "M"
+note = "визуализация в PLCopen XML не переносится"
+
+[[pou]]
+library = "OwenVisuTools"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/04_Library/05_3.5.11.5/02_Libraries/"
+confidence = "M"
+
+[[pou]]
+library = "OwenTypes"
+source = "*"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/03_Targets/OwenTargets-3.5.17.36.txt"
+confidence = "H"
+note = "типы узлов таргета (ExceptionHandling) удаляются вместе с узлами"

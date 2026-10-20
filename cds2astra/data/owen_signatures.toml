@@ -1,0 +1,165 @@
+# Сигнатуры POU библиотек ОВЕН — только из документации ОВЕН (страница, версия документа, SHA-256 PDF).
+# Нет источника — нет строки. PDF в репозиторий не кладутся (ссылки — docs/SOURCES.md).
+# Порядок входов — как в таблице документа. pins: имя, тип, направление (in/out/ret).
+
+[documents.osu]
+title = "CODESYS V3.5. Описание библиотеки OwenStringUtils"
+version = "3.0"
+url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf"
+sha256 = "5570301ff6d96cb38fd80f78b2e2b0cee1f7e01f4880567e1a4301c73cf620b2"
+namespace = "OSU"
+namespace_page = 6
+
+[documents.opr]
+title = "CODESYS V3.5. Описание библиотеки CmpOwenPidRegs"
+version = "2.2 (10.06.2024), библиотека 3.5.14.33"
+url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_CmpOwenPidRegs_v2.2.pdf"
+sha256 = "2a91eade9b563c8c7d1f01c83d8b843a5e0fc58dc65fcedec484f1f217bfb2f8"
+namespace = "OPR"
+namespace_page = 5
+
+[documents.targets]
+title = "CODESYS V3.5. Описание таргет-файлов"
+version = "3.4"
+url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_Targets_v3.4.pdf"
+sha256 = "d4fb22c2a5c27ab9fdb315dec294f275b8d02c12312e1819651b18888c836e91"
+
+[[pou]]
+library = "OwenStringUtils"
+name = "REAL_TO_STRING_FORMAT"
+kind = "function"
+doc = "osu"
+page = 9
+pins = [
+  ["rValueToConvert", "REAL", "in"],
+  ["usiSignificantDigitsCount", "USINT", "in"],
+  ["eDecimalSeparator", "DECIMAL_SEPARATOR", "in"],
+  ["REAL_TO_STRING_FORMAT", "STRING(80)", "ret"],
+]
+note = "DECIMAL_SEPARATOR: DOT = 0, COMMA = 1 (USINT), табл. 3.2.2; недопустимый разделитель -> точка; > 1e8 -> экспоненциальная запись"
+
+[[pou]]
+library = "OwenStringUtils"
+name = "Before"
+kind = "function"
+doc = "osu"
+page = 15
+pins = [["sSource", "STRING(255)", "in"], ["sPostfix", "STRING(255)", "in"], ["Before", "STRING(255)", "ret"]]
+note = "подстрока до первого вхождения sPostfix; не найдена -> пустая строка"
+
+[[pou]]
+library = "OwenStringUtils"
+name = "After"
+kind = "function"
+doc = "osu"
+page = 19
+pins = [["sSource", "STRING(255)", "in"], ["sPrefix", "STRING(255)", "in"], ["After", "STRING(255)", "ret"]]
+note = "подстрока после первого вхождения sPrefix; не найдена -> пустая строка"
+
+[[pou]]
+library = "OwenStringUtils"
+name = "ADD_CHAR"
+kind = "function"
+doc = "osu"
+page = 33
+pins = [
+  ["sInputString", "STRING(255)", "in"],
+  ["usiTargetLen", "USINT", "in"],
+  ["sAddChar", "STRING(1)", "in"],
+  ["xRight", "BOOL", "in"],
+  ["ADD_CHAR", "STRING(255)", "ret"],
+]
+note = "дополнение до usiTargetLen справа (xRight) или слева; длиннее -> без изменений"
+
+[[pou]]
+library = "OwenStringUtils"
+name = "CONCAT4"
+kind = "function"
+doc = "osu"
+page = 39
+pins = [
+  ["sInputString1", "STRING(255)", "in"],
+  ["sInputString2", "STRING(255)", "in"],
+  ["sInputString3", "STRING(255)", "in"],
+  ["sInputString4", "STRING(255)", "in"],
+  ["CONCAT4", "STRING(255)", "ret"],
+]
+
+[[pou]]
+library = "OwenStringUtils"
+name = "HEX_STR_TO_WORD"
+kind = "function"
+doc = "osu"
+page = 50
+pins = [["sInputString", "STRING(8)", "in"], ["sPrefix", "STRING(4)", "in"], ["HEX_STR_TO_WORD", "WORD", "ret"]]
+note = "до 4 символов префикса и 4 hex-символов, регистр не учитывается, строка не валидируется"
+
+[[pou]]
+library = "OwenStringUtils"
+name = "WORD_TO_HEX_STR"
+kind = "function"
+doc = "osu"
+page = 51
+pins = [
+  ["wInput", "WORD", "in"],
+  ["xUpperCase", "BOOL", "in"],
+  ["sPrefix", "STRING(4)", "in"],
+  ["WORD_TO_HEX_STR", "STRING(8)", "ret"],
+]
+
+[[pou]]
+library = "OwenStringUtils"
+name = "LowerCase"
+kind = "function"
+doc = "osu"
+page = 52
+pins = [["sStringToConvert", "STRING(255)", "in"], ["LowerCase", "STRING(255)", "ret"]]
+note = "кодировка CP1251"
+
+[[pou]]
+library = "OwenStringUtils"
+name = "UpperCase"
+kind = "function"
+doc = "osu"
+page = 54
+pins = [["sStringToConvert", "STRING(255)", "in"], ["UpperCase", "STRING(255)", "ret"]]
+note = "кодировка CP1251"
+
+[[pou]]
+library = "CmpOwenPidRegs"
+name = "STD_PID"
+kind = "functionBlock"
+doc = "opr"
+page = 10
+pins = [
+  ["Y_MANUAL", "REAL", "in"],
+  ["Y_MAN_SET", "BOOL", "in"],
+  ["PV", "REAL", "in"],
+  ["PV_TIME", "WORD", "in"],
+  ["SP", "REAL", "in"],
+  ["XN", "REAL", "in"],
+  ["PMIN", "REAL", "in"],
+  ["PMAX", "REAL", "in"],
+  ["XP", "REAL", "in"],
+  ["TI", "REAL", "in"],
+  ["TD", "REAL", "in"],
+  ["VSP", "REAL", "in"],
+  ["INF", "REAL", "in"],
+  ["Y", "REAL", "out"],
+]
+note = "ПИД без автонастройки, выход PMIN..PMAX (-1..1), XP = 100/Kp (п. 3.2, с. 20); реализация — компонент рантайма ОВЕН (Linux), библиотека — только интерфейс"
+
+[[pou]]
+library = "CmpOwenPidRegs"
+name = "ON_OFF_HIST_REG"
+kind = "functionBlock"
+doc = "opr"
+page = 9
+pins = [
+  ["PV", "REAL", "in"],
+  ["SP", "REAL", "in"],
+  ["HYST", "REAL", "in"],
+  ["DB", "REAL", "in"],
+  ["COOLER", "BOOL", "out"],
+  ["HEATER", "BOOL", "out"],
+]

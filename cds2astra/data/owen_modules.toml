@@ -1,0 +1,154 @@
+# Узлы таргета ПЛК2xx и модули Mx210: каналы и регистры по документации ОВЕН (страница, версия).
+# owen-devsim ещё нет — карты сняты с РЭ самостоятельно. Порядок слов FLOAT32 в РЭ не указан (unknown).
+
+[documents.targets]
+url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_Targets_v3.4.pdf"
+version = "3.4"
+sha256 = "d4fb22c2a5c27ab9fdb315dec294f275b8d02c12312e1819651b18888c836e91"
+
+[documents.mv210_101]
+url = "https://owen.ru/uploads/167/re_mv210-101_1-ru-23540-1.41.pdf"
+version = "1.41"
+sha256 = "86d5c9f3de0e52755017cc7a82d65976bb647717f31ec5c8103a9bdff6bff35d"
+
+[documents.mu210_402]
+url = "https://owen.ru/uploads/365/re_mu210-402_1-ru-44622-2.9_a4.pdf"
+version = "2.9 (11.2022)"
+sha256 = "63b1c1447796332705aa4a15dbcdf8cc47ddcbd0f62e253537c74263f51e8998"
+
+# --- узлы таргета (C2A-IO002) ---------------------------------------------------------------
+
+[nodes.OwenRTC]
+doc = "targets"
+page = 10
+replacement = "FB_C2aRtc"
+kind = "wrap"
+channels = [
+  ["Year", "UINT", "ro"], ["Month", "USINT", "ro"], ["Day", "USINT", "ro"], ["Hour", "USINT", "ro"],
+  ["Minute", "USINT", "ro"], ["Second", "USINT", "ro"], ["Day of week", "USINT", "ro"],
+  ["Week of year", "USINT", "ro"], ["Format date", "STRING(80)", "ro"], ["Format time", "STRING(80)", "ro"],
+  ["UTC Offset", "SINT", "ro"], ["Date And Time", "DT", "ro"], ["System timer", "LTIME", "ro"],
+  ["Operating Time", "LTIME", "ro"],
+]
+# каналы FB_C2aRtc с тем же смыслом (неизвестные каналы -> todo)
+outputs = { "Year" = "uiYear", "Month" = "usiMonth", "Day" = "usiDay", "Hour" = "usiHour", "Minute" = "usiMinute", "Second" = "usiSecond", "Day of week" = "usiDayOfWeek", "Format date" = "sFormatDate", "Format time" = "sFormatTime", "Date And Time" = "dtDateAndTime", "System timer" = "ltSystemTimer" }
+
+[nodes.Watchdog]
+doc = "targets"
+page = 23
+kind = "none"
+note = "режим обработки исключений -> системные события задач и PsSysExcept (C2A-EXC001, каркас по DPA-302 прил. И)"
+
+[nodes.Info]
+doc = "targets"
+page = 22
+kind = "none"
+note = "PsPlcInfo (сеть, hwmon), журналы PsLog"
+
+[nodes.Network]
+doc = "targets"
+page = 16
+kind = "none"
+note = "PsPlcInfo"
+
+[nodes.Drives]
+doc = "targets"
+page = 14
+kind = "none"
+note = "PsPlcInfo, PsSysFile"
+
+[nodes.Debug]
+doc = "targets"
+page = 21
+kind = "none"
+
+[nodes.Screen]
+doc = "targets"
+page = 17
+kind = "none"
+note = "экран СПК — визуализация R400/TargetVisu, вручную"
+
+[nodes.Buzzer]
+doc = "targets"
+page = 14
+kind = "none"
+
+[nodes.OwenCloud]
+doc = "targets"
+page = 12
+kind = "none"
+
+[nodes.LeftSide]
+doc = "targets"
+page = 35
+kind = "module"
+note = "встроенные DI/DO ПЛК210 -> модули REGUL (DI 32 011 / DO 32 011); ШИМ и генератор — только при модуле соответствующего типа"
+
+[nodes.RightSide]
+doc = "targets"
+page = 32
+kind = "module"
+
+[nodes.BuiltinModem]
+doc = "targets"
+page = 39
+kind = "none"
+
+# --- модули Mx210 (C2A-IO003) ----------------------------------------------------------------
+
+[modules."MV210-101"]
+doc = "mv210_101"
+title = "МВ210-101, модуль аналогового ввода (8 AI), Modbus TCP"
+max_clients = 4
+max_clients_page = 23
+read_fc = [3, 4]
+write_fc = [16]
+# канал: имя шаблона ОВЕН, регистр, число регистров, тип, страница
+[[modules."MV210-101".registers]]
+name = "Вход {n}/Измеренное значение"
+first = 4000
+step = 3
+count = 8
+words = 2
+type = "REAL"
+page = 28
+[[modules."MV210-101".registers]]
+name = "Вход {n}/Циклическое время измерения"
+first = 4002
+step = 3
+count = 8
+words = 1
+type = "UINT"
+page = 28
+[[modules."MV210-101".registers]]
+name = "Вход {n}/Значение (integer)"
+first = 4064
+step = 1
+count = 8
+words = 1
+type = "INT"
+page = 28
+
+[modules."MV210-101".status_codes]
+page = 36
+# Таблица 6.9: код ошибки датчика передаётся в регистре значения (положение байта в FLOAT32 — сверить)
+codes = [
+  [0xF0, "заведомо неверно"], [0xF6, "данные не готовы"], [0xF7, "датчик отключён"],
+  [0xF8, "велика температура свободных концов ТП"], [0xF9, "мала температура свободных концов ТП"],
+  [0xFA, "значение слишком велико"], [0xFB, "значение слишком мало"], [0xFC, "короткое замыкание"],
+  [0xFD, "обрыв датчика"], [0xFE, "нет связи с АЦП"], [0xFF, "некорректный калибровочный коэффициент"],
+]
+
+[modules."MU210-402"]
+doc = "mu210_402"
+title = "МУ210-402, модуль дискретного вывода (16 DO), Modbus TCP"
+read_fc = [3, 4]
+write_fc = [6, 16]
+[[modules."MU210-402".registers]]
+name = "Выходы/Битовая маска установки"
+first = 470
+step = 1
+count = 1
+words = 1
+type = "WORD"
+page = 26

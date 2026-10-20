@@ -1,0 +1,89 @@
+# OwenStringUtils (ОВЕН) -> AstraCompat. Сигнатуры — data/owen_signatures.toml (документ v3.0).
+# kind: map — другое имя, та же семантика (auto); wrap — обёртка AstraCompat с теми же пинами (check);
+# stub — заглушка без реализации (todo); none — аналога нет (todo).
+
+[library]
+name = "OwenStringUtils"
+namespace = "OSU"
+replacement = "AstraCompat"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf"
+note = "библиотеки ОВЕН в Astra.IDE нет (конспект §5); Astra-аналог строк — PsUtils (UTF-8 <-> WSTRING) и Standard"
+
+[[pou]]
+source = "WORD_TO_HEX_STR"
+kind = "wrap"
+target = "F_C2aWordToHexStr"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=51"
+confidence = "H"
+
+[[pou]]
+source = "HEX_STR_TO_WORD"
+kind = "wrap"
+target = "F_C2aHexStrToWord"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=50"
+confidence = "H"
+
+[[pou]]
+source = "Before"
+kind = "wrap"
+target = "F_C2aBefore"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=15"
+confidence = "H"
+
+[[pou]]
+source = "After"
+kind = "wrap"
+target = "F_C2aAfter"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=19"
+confidence = "H"
+
+[[pou]]
+source = "ADD_CHAR"
+kind = "wrap"
+target = "F_C2aAddChar"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=33"
+confidence = "H"
+
+[[pou]]
+source = "CONCAT4"
+kind = "wrap"
+target = "F_C2aConcat4"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=39"
+confidence = "H"
+
+[[pou]]
+source = "REAL_TO_STRING_FORMAT"
+kind = "wrap"
+target = "F_C2aRealToStringFormat"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=9"
+confidence = "M"
+note = "округление и экспоненциальная запись (> 1e8) могут отличаться в последнем знаке — check"
+
+[[pou]]
+source = "DECIMAL_SEPARATOR"
+kind = "map"
+target = "E_C2aDecimalSeparator"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=9"
+confidence = "H"
+note = "тип перечисления: DOT = 0, COMMA = 1 (USINT), табл. 3.2.2"
+
+[[pou]]
+source = "LowerCase"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=52"
+confidence = "H"
+note = "CP1251-регистр: кириллица в STRING на Astra требует отдельного решения (kns R23)"
+
+[[pou]]
+source = "UpperCase"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=54"
+confidence = "H"
+note = "см. LowerCase"
+
+[[pou]]
+source = "CP1251_TO_UNICODE"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_OwenStringUtils_v3.0.pdf#page=7"
+confidence = "M"
+note = "на Astra — PsUtils (UTF-8 <-> WSTRING), DPA-302 прил. Л; перекодировку CP1251 писать отдельно"

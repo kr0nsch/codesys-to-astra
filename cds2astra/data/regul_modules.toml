@@ -1,0 +1,105 @@
+# Устройства REGUL: DeviceIdentification из локальных описаний устройств Astra.IDE 1.7.2.2
+# (C:/ProgramData/Astra.IDE_64_1.7.2.2/Devices, только чтение 20.10.2026; в репозиторий — только идентификаторы)
+# и из образца экспорта Astra V1.7.0.0 (niksosov). Каналы модулей — DPA-311; нет источника — confidence unknown.
+
+source_local = "C:/ProgramData/Astra.IDE_64_1.7.2.2/Devices (devdesc 11.7.2.60, чтение 2026-10-20)"
+source_sample = "https://github.com/niksosov/astraregul_stand (AstraRegul_stand.xml @ 851ac49)"
+
+[cpu."REGUL R500 61"]
+type = 4096
+id = "109B 0008"
+version = "11.7.2.60"
+cpu_type = "I"
+webvisu = false
+confidence = "verified_local"
+
+[cpu."REGUL R500 61-W"]
+type = 4096
+id = "109B 000A"
+version = "11.7.2.60"
+cpu_type = "I"
+webvisu = true
+confidence = "verified_local"
+
+[cpu."REGUL R500 71-W"]
+type = 4096
+id = "109B 000B"
+version = "11.7.2.60"
+cpu_type = "I"
+webvisu = true
+confidence = "verified_local"
+
+[cpu."REGUL R500 171"]
+type = 4096
+id = "109B 0042"
+version = "11.7.2.60"
+cpu_type = "III"
+webvisu = false
+confidence = "verified_local"
+
+[cpu."REGUL R500 171-W"]
+type = 4096
+id = "109B 0043"
+version = "11.7.2.60"
+cpu_type = "III"
+webvisu = true
+confidence = "verified_local"
+
+[bus."Regul Bus OS"]
+type = 50001
+id = "109B 0004"
+version = "1.7.2.0"
+confidence = "verified_local"
+
+[bus."Regul Bus"]
+type = 40001
+id = "109B 0004"
+version = "1.7.1.1"
+confidence = "verified_local"
+
+[crate."R500 Crate"]
+type = 50005
+id = "109B 0008"
+version = "1.6.5.0"
+slots = 13
+confidence = "verified_local"
+slots_confidence = "unknown"
+
+[module."DI 32 011"]
+type = 50008
+id = "109B 0001"
+version = "1.7.130.0"
+channels = 32
+signal = "DI"
+confidence = "verified_local"
+
+[module."DO 32 011"]
+type = 50008
+id = "109B 0003"
+version = "1.7.130.0"
+channels = 32
+signal = "DO"
+confidence = "verified_local"
+
+[module."AI 08 041"]
+type = 50008
+id = "109B 0002"
+version = "1.7.130.0"
+channels = 8
+signal = "AI"
+confidence = "verified_local"
+
+[modbus."Modbus TCP Master OS"]
+type = 50088
+id = "109B 0001"
+version = "1.7.1.0"
+confidence = "verified_local"
+library = "PsIoDrvModbusTcpMaster_OS"
+
+[modbus."Modbus TCP Outer Slave OS"]
+type = 50089
+id = "109B 0001"
+version = "1.7.2.40"
+confidence = "verified_local"
+timeout_ms = 1000
+timeout_source = "https://reglab.ru/upload/iblock/c63/bxjpd31viamzx3b4i0nj0zthy4xq1sg1/Modbus-User-Guide-DPA_302-1_v1.7_rus.pdf с. 25–27"

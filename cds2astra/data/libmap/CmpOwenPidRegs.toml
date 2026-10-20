@@ -1,0 +1,49 @@
+# CmpOwenPidRegs (ОВЕН) -> AstraCompat. Компонент рантайма ОВЕН с внешними функциями: в CODESYS Control Win
+# он в лучшем случае скомпилируется, но не запустится; на REGUL его нет.
+
+[library]
+name = "CmpOwenPidRegs"
+namespace = "OPR"
+replacement = "AstraCompat"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_CmpOwenPidRegs_v2.2.pdf"
+
+[[pou]]
+source = "STD_PID"
+kind = "wrap"
+target = "FB_C2aPid"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_CmpOwenPidRegs_v2.2.pdf#page=10"
+confidence = "M"
+note = "интерфейс STD_PID поверх Util.PID: алгоритм другой (XN, VSP, INF, PV_TIME не повторяются) — всегда check"
+
+[[pou]]
+source = "ON_OFF_HIST_REG"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_CmpOwenPidRegs_v2.2.pdf#page=9"
+confidence = "H"
+note = "логика зоны нечувствительности описана только рисунком — реализовать по месту"
+
+[[pou]]
+source = "APID_POS_VALV"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_CmpOwenPidRegs_v2.2.pdf#page=12"
+confidence = "H"
+note = "ПИД с автонастройкой: автонастройки на REGUL нет (Util.PID, PsTechOG)"
+
+[[pou]]
+source = "APID_PWM"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_CmpOwenPidRegs_v2.2.pdf#page=15"
+confidence = "H"
+note = "см. APID_POS_VALV"
+
+[[pou]]
+source = "DIG_FLTR"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_CmpOwenPidRegs_v2.2.pdf#page=7"
+confidence = "H"
+
+[[pou]]
+source = "PSI_MOIST"
+kind = "none"
+source_url = "https://ftp.owen.ru/CoDeSys3/11_Documentation/03_3.5.11.5/CDSv3.5_CmpOwenPidRegs_v2.2.pdf#page=8"
+confidence = "H"
