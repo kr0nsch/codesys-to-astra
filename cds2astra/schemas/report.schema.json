@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cds2astra-report/1",
+  "title": "MIGRATION_REPORT.json cds2astra (расширение ядра семейства plc-migration-report-core/1)",
+  "allOf": [{"$ref": "plc-migration-report-core/1"}],
+  "type": "object",
+  "required": ["outcomes", "matrix", "tasks", "io_map", "replacements", "objects", "import"],
+  "properties": {
+    "outcomes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["auto", "check", "todo", "impossible", "info"],
+      "properties": {
+        "auto": {"type": "integer", "minimum": 0},
+        "check": {"type": "integer", "minimum": 0},
+        "todo": {"type": "integer", "minimum": 0},
+        "impossible": {"type": "integer", "minimum": 0},
+        "info": {"type": "integer", "minimum": 0}
+      }
+    },
+    "matrix": {
+      "description": "язык × родной исход",
+      "type": "object",
+      "additionalProperties": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["task", "before", "after"],
+        "properties": {
+          "task": {"type": "string"},
+          "before": {"type": ["integer", "null"]},
+          "after": {"type": "integer"},
+          "interval_ms": {"type": ["number", "null"]},
+          "kind": {"type": "string"},
+          "reason": {"type": "string"},
+          "pous": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "io_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["variable", "owen", "regul", "outcome", "rule"],
+        "properties": {
+          "variable": {"type": "string"},
+          "owen": {"type": "string"},
+          "regul": {"type": "string"},
+          "outcome": {"enum": ["auto", "check", "todo", "impossible", "info"]},
+          "rule": {"type": "string"}
+        }
+      }
+    },
+    "replacements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "kind", "count"],
+        "properties": {
+          "source": {"type": "string"},
+          "target": {"type": ["string", "null"]},
+          "kind": {"type": "string"},
+          "count": {"type": "integer", "minimum": 1},
+          "url": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "objects": {"type": "array", "items": {"type": "object", "required": ["name", "kind"]}},
+    "import": {
+      "type": "object",
+      "required": ["form", "mode", "libraries"],
+      "properties": {
+        "form": {"enum": ["pous", "resource"]},
+        "mode": {"enum": ["astra", "preserve"]},
+        "libraries": {"type": "array", "items": {"type": "object"}}
+      }
+    },
+    "markers_existing": {"type": "integer", "minimum": 0},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}
