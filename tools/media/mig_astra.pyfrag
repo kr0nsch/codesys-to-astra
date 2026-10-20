@@ -1,0 +1,68 @@
+def mig_astra(g: G) -> None:
+    """Перенос CODESYS -> REGUL: ПЛК210 ОВЕН слева (было), крейт REGUL R500 справа (стало).
+
+    Между ними таблица замен из libmap и правила C2A-IO001 проекта codesys-to-astra;
+    модуль МВ210 и до, и после остаётся на Modbus TCP (меняется только мастер).
+    """
+    t = g.t
+    top, bot = 30, 164
+    # было: ПЛК210 (приглушён — это исходник)
+    x0, w0 = 6, 96
+    g.rect(x0, top, w0, bot - top, 5, t["line_dim"], t["surface"], 1.5)
+    for row_y in (top + 6, bot - 13):  # клеммники сверху и снизу
+        for i in range(7):
+            g.rect(x0 + 11 + i * 11, row_y, 7, 7, 1, t["line_dim"], t["bg"], 1)
+    g.text("ПЛК210", x0 + 12, top + 40, "mono_bold", LABEL["key"], t["text_muted"])
+    for i, (lab, col, bl) in enumerate((("RUN", t["ok"], True), ("ERR", t["line_dim"], False))):
+        yy = top + 60 + i * 16
+        g.led(x0 + 16, yy, col, 3, blink=bl, halo=bl)
+        g.text(lab, x0 + 26, yy + 3.6, "mono", LABEL["minor"], t["text_dim"])
+    g.text("CODESYS 3.5", x0 + 12, top + 108, "mono", LABEL["minor"], t["text_dim"])
+    # стало: крейт REGUL R500 на шине
+    mods = [("psu", 20), ("cpu", 32), ("io", 15), ("io", 15), ("io", 15)]
+    x1 = 290
+    g.rect(x1 - 4, bot - 4, 112, 8, 2, t["line"], t["surface_2"], 1.4)
+    x = x1
+    for kind, w in mods:
+        hl = kind == "cpu"
+        g.rect(x, top, w, bot - top - 6, 3, t["accent"] if hl else t["line"],
+               t["accent_soft"] if hl else t["surface"], 1.8 if hl else 1.4)
+        if kind == "psu":
+            g.led(x + w / 2, top + 14, t["ok"], 2.6)
+        elif kind == "cpu":
+            g.text("CPU", x + w / 2, top + 22, "mono_bold", LABEL["minor"], t["text"], "middle")
+            g.led(x + w / 2, top + 40, t["ok"], 3, blink=True)
+            g.rect(x + 8, bot - 34, 16, 13, 2, t["line"], t["bg"], 1.2)
+        else:
+            for i in range(8):
+                on = (x * 5 + i * 3) % 5 < 2
+                g.rect(x + 5, top + 12 + i * 11, 5, 5, 1, None, t["ok"] if on else t["line_dim"],
+                       opacity=1 if on else 0.55)
+        x += w + 3
+    # между ними: таблица замен (строки — из libmap/*.toml проекта)
+    tx, ty, tw, rh = 120, 30, 152, 21
+    rows = [("STD_PID", "FB_C2aPid", False), ("OwenRTC", "FB_C2aRtc", False), ("Before", "F_C2aBefore", False),
+            ("AT %IX", "GVL_IO", False), ("ON_OFF…", "todo", True)]
+    g.rect(tx, ty, tw, 26 + len(rows) * rh, 6, t["line"], t["surface"], 1.5)
+    g.path(f"M{tx} {ty + 26}H{tx + tw}", t["border"], 1)
+    g.text("libmap", tx + 10, ty + 17, "mono_semibold", LABEL["title"], t["text"])
+    for i, (src, dst, warn) in enumerate(rows):
+        yy = ty + 26 + i * rh + 14.5
+        g.text(src, tx + 9, yy, "mono", LABEL["minor"], t["text_dim"])
+        g.path(f"M{tx + 58} {yy - 3.5}H{tx + 65}", t["line_dim"], 1.2)
+        g.arrow_head(tx + 69, yy - 3.5, 0, 4, t["line_dim"])
+        g.text(dst, tx + 73, yy, "mono", LABEL["minor"], t["text_muted"] if warn else t["accent"])
+        if warn:
+            g.rect(tx + 2, yy - 10, 3, 13, 1.5, None, t["warn"])
+    # стрелки переноса
+    for xa, xb in ((x0 + w0 + 3, tx - 9), (tx + tw + 3, x1 - 9)):
+        g.path(f"M{xa} 97H{xb}", t["accent"], 2.6, cls="flow", cap="butt")
+        g.arrow_head(xb + 7, 97, 0, 8, t["accent"])
+    # МВ210 по Modbus TCP — и до, и после
+    for cx in (x0 + w0 / 2, x1 + 54):
+        g.signal(f"M{cx} {bot + (0 if cx < 200 else 4)}V196", animated=True)
+        g.rect(cx - 30, 196, 60, 26, 4, t["line"], t["surface"], 1.4)
+        g.text("МВ210", cx, 213, "mono", LABEL["label"], t["text_muted"], "middle")
+    g.text("Modbus TCP", 196, 213, "mono", LABEL["label"], t["text_dim"], "middle")
+    g.text("ОВЕН", x0 + w0 / 2, 248, "mono", LABEL["label"], t["text_dim"], "middle")
+    g.text("REGUL R500", x1 + 54, 248, "mono", LABEL["label"], t["text_dim"], "middle")
