@@ -118,6 +118,15 @@ def build_json(s: Session, effort: Effort, objects: list[dict[str, str]]) -> dic
     return report
 
 
+def source_label(source: dict[str, Any]) -> str:
+    """«CODESYS V3.5 SP17 Patch 3» без повтора имени продукта, если версия его уже содержит."""
+    ide = str(source.get("ide") or "")
+    ver = str(source.get("ide_version") or "")
+    if ide and ver.startswith(ide):
+        return ver
+    return " ".join(x for x in (ide, ver) if x) or "—"
+
+
 def to_json_bytes(report: dict[str, Any]) -> bytes:
     return (json.dumps(report, ensure_ascii=False, indent=2, sort_keys=False) + "\n").encode("utf-8")
 
@@ -135,8 +144,8 @@ def build_md(report: dict[str, Any]) -> str:
     lines = [
         "# Отчёт о переносе в Astra.IDE",
         "",
-        f"Создано {report['tool']['name']} {report['tool']['version']}. Источник: {report['source'].get('ide', '—')} "
-        f"{report['source'].get('ide_version', '')}, SHA-256 `{report['source']['sha256'][:16]}…`. "
+        f"Создано {report['tool']['name']} {report['tool']['version']}. Источник: {source_label(report['source'])}"
+        f", SHA-256 `{report['source']['sha256'][:16]}…`. "
         f"Цель: профиль `{report['target']['profile']}`.",
         "",
         "## Сводка",
@@ -266,7 +275,7 @@ def build_html(report: dict[str, Any]) -> str:
         f"<title>Отчёт о переносе — {e(report['tool']['name'])}</title><style>{CSS}</style></head><body><main>",
         "<h1>Отчёт о переносе в Astra.IDE</h1>",
         f'<div class="sub">{e(report["tool"]["name"])} {e(report["tool"]["version"])} · источник '
-        f"{e(str(report['source'].get('ide', '—')))} {e(str(report['source'].get('ide_version', '')))} · профиль "
+        f"{e(source_label(report['source']))} · профиль "
         f"<code>{e(report['target']['profile'])}</code></div>",
         f'<div class="tiles">{tiles}</div>',
         '<div class="sub">Часы — модель (треугольное распределение, Монте-Карло'

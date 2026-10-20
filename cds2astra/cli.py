@@ -24,6 +24,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from . import TOOL_NAME, __version__, api, profiles
+from .emit.report import source_label
 from .findings import at_least
 from .importers import plcopen
 from .owner import build_errors, probe
@@ -88,7 +89,8 @@ def cmd_inventory(args: argparse.Namespace) -> int:
         print(json.dumps(inv, ensure_ascii=False, indent=2))
     else:
         print(
-            f"{name}: {inv['product'] or '—'} {inv['product_version'] or ''} ({inv['namespace']}, {', '.join(inv['placements'])})"
+            f"{name}: {source_label({'ide': inv['product'], 'ide_version': inv['product_version']})} "
+            f"({inv['namespace']}, {', '.join(inv['placements'])})"
         )
         print(
             f"  POU {inv['pous']}, интерфейсов {inv['interfaces']}, действий {inv['actions']}, методов {inv['methods']}, "
