@@ -33,9 +33,8 @@ from __future__ import absolute_import, print_function, unicode_literals
 import os
 
 import build as B
-import import_sources as I
-
 import cds_common as C
+import import_sources as I
 import stlayout as L
 
 MYPY = False

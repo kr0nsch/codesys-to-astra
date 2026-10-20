@@ -7,10 +7,10 @@ import os
 import re
 from pathlib import Path
 
-import assemble
 import pytest
-import st_flavors as F
 
+import assemble
+import st_flavors as F
 import stlayout as L
 from conftest import GOLDEN, LOWERING, SAMPLE, SOURCEMAP, SOURCEMAP_MARK, MakeTree, sourcemap_lines, update_golden
 

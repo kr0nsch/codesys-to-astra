@@ -79,6 +79,11 @@ exclude = [
     '^web/',
 ]
 
+[[tool.mypy.overrides]]
+# Playwright нужен только e2e и медиа (локально и в джобе web), в основной матрице CI его нет
+module = ["playwright", "playwright.*"]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 testpaths = ["cds2astra/tests", "tools/tests"]
 pythonpath = [".", "tools", "tools/codesys", "tools/check"]
@@ -100,7 +105,38 @@ show_missing = false
 skip_covered = true
 
 [tool.ruff.lint.isort]
-known-first-party = ["cds2astra", "conftest", "cdshost", "fetch_samples", "stlayout", "cds_common"]
+# Модули из src явно: автоопределение ruff по src ломается, если в пути к рабочей копии есть «[…]» (шаблон glob)
+known-first-party = [
+    "cds2astra",
+    "conftest",
+    "cdshost",
+    "fetch_samples",
+    "stlayout",
+    "cds_common",
+    "assemble",
+    "build",
+    "cds",
+    "cds_ide",
+    "check_sources",
+    "coverage_gate",
+    "e2e_smoke",
+    "export_sources",
+    "fp_labels",
+    "gen_docs",
+    "import_sources",
+    "library_repo",
+    "make_library",
+    "probes",
+    "run_iec_checker",
+    "run_oracles",
+    "run_rusty",
+    "run_tests",
+    "st_flavors",
+    "st_lint",
+    "web_bundle",
+    "xml_oracle",
+    "xml_oracle_ide",
+]
 
 [tool.ruff.lint.pycodestyle]
 # Строки сообщений по-русски длиннее кода: формат — 120, предел E501 — 140 (длинные литералы не переносим)

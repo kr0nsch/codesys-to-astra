@@ -52,10 +52,9 @@ JOB = load_job()
 sys.path.insert(0, JOB['tools_codesys'])
 
 import build as B  # noqa: E402
+import cds_common as C  # noqa: E402
 import import_sources as I  # noqa: E402
 import make_library as ML  # noqa: E402
-
-import cds_common as C  # noqa: E402
 
 SE = C.api()
 

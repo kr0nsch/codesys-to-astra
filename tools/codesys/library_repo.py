@@ -15,9 +15,8 @@
 """
 from __future__ import absolute_import, print_function, unicode_literals
 
-import import_sources as I
-
 import cds_common as C
+import import_sources as I
 
 MYPY = False
 if MYPY:  # pragma: no cover

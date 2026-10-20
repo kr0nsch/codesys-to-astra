@@ -21,7 +21,6 @@ env:
   RUSTY_VERSION: v1.0.6
   RUSTY_PLC_SHA256: cee05d9871b7a4dea66ad0e1a3a94cce858d28967c0bdecd16a821e3c621a6bf
   RUSTY_STDLIB_SHA256: 17086c67d46cdba0a6acf8c3c8e3b594804053df3913dab2756ef555cb826129
-  SOURCE_DATE_EPOCH: "0"
 
 jobs:
   checks:
@@ -93,6 +92,9 @@ jobs:
       - name: Перенос корпуса (CLI)
         if: ${{ !cancelled() }}
         shell: bash
+        env:
+          # только здесь: глобально SOURCE_DATE_EPOCH=0 ломает сборку колёс pip (ZIP не хранит даты до 1980)
+          SOURCE_DATE_EPOCH: "0"
         run: |
           python -m cds2astra migrate corpus/boiler-plc210/export.xml --target-spec corpus/boiler-plc210/target.toml \
             --out build/boiler --zip build/repro/boiler.zip --fail-on never

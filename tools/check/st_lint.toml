@@ -5,7 +5,8 @@
 #   STL007 — FB_C2aPid повторяет имена пинов STD_PID CmpOwenPidRegs (Y_MANUAL, PV, SP, XP…): правило wrap
 #            таблицы замен требует тех же имён и типов пинов, что у ОВЕН (PROMPT M4, тест сигнатур);
 #   STL008 — F_C2aUnixToDate: константы календарного алгоритма (719468, 146097, 153…) — часть формулы;
-#            PRG_C2aSelfTest — значения-примеры точки входа рабочей сборки; tests/ — данные тестов.
+#            PRG_C2aSelfTest — значения-примеры точки входа рабочей сборки; tests/ — данные тестов;
+#   STL011 — FB_C2aPid_Test: многоцикловые тесты считают вызовы, а не время.
 
 [lint]
 paths = ["src", "tests"]        # каталоги раскладки (docs/LAYOUT.md)
@@ -105,4 +106,5 @@ exclude = ["tests/*", "src/POUs/F_C2aUnixToDate/*", "src/POUs/PRG_C2aSelfTest/*"
 [rules.STL011]
 name_pattern = "(?i)(cycle|cyc|scan|tick)"                  # счётчик с таким именем
 time_name_pattern = "(?i)(time|delay|timeout|_ms$|_s$|sec)" # сравнение счётчика с «временем»
-exclude = []
+# проект: многоцикловые тесты ПИД считают вызовы намеренно (установившееся значение через N циклов)
+exclude = ["tests/POUs/FB_C2aPid_Test/*"]

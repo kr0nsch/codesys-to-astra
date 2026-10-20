@@ -16,7 +16,7 @@ V3.5 SP17 Patch 3», CODESYS Control Win V3). На контроллере REGUL 
 | корпус правил pos/neg | 26 правил × 2 = 52 случая, все зелёные |
 | Hypothesis | мутации XML дают находку или `ImportError_`, не исключение; правки в любом порядке — один результат |
 | идемпотентность, детерминизм | `migrate(migrate(x)) == migrate(x)`; два прогона побайтно равны, zip тоже |
-| st_lint (`--strict`) | 98 файлов, 0 ошибок, 4 предупреждения STL011 (счёт циклов в многоцикловых тестах ПИД — так задуман тест) |
+| st_lint (`--strict`) | 98 файлов, 0 ошибок, 0 предупреждений (STL011 для многоцикловых тестов ПИД исключён с причиной — `docs/STATIC_ANALYSIS.md`) |
 | RuSTy `plc --check` v1.0.6 | 19 файлов без ошибок (2 предупреждения E067 «Implicit downcast DINT → INT» в `F_C2aBefore`/`F_C2aAfter` — в RuSTy `FIND` возвращает DINT, в CODESYS — INT), 8 исключены: расхождения диалектов (`Util`, `SysTimeRtc`, индекс символа STRING) и зависящие от них объекты (`tools/check/rusty_exclude.txt`, `docs/STATIC_ANALYSIS.md`) |
 | iec_checker v0.4 | 27 файлов, необоснованных 0, обоснованных 229 (`tools/check/iec_checker_allow.toml`), артефактов сборки 12 |
 | AstraCompat в CODESYS 3.5.17.30 | «Проверить все объекты» с тестами: 27 объектов, 0 ошибок, 0 предупреждений |

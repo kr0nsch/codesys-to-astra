@@ -9,8 +9,8 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-import st_lint
 
+import st_lint
 from conftest import LOWERING, SAMPLE, ST_LINT_TEMPLATE, MakeTree
 
 BOM = chr(0xFEFF)

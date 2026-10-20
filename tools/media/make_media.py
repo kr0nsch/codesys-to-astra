@@ -108,8 +108,9 @@ def report_shots() -> None:
 
 def demo() -> None:
     """Скриншоты вкладок в двух темах и GIF ~13 с (тёмная тема) с настоящего веб-демо (web/dist)."""
-    import e2e_smoke
     from playwright.sync_api import sync_playwright
+
+    import e2e_smoke
 
     shot = kit("shot")
     if not (e2e_smoke.DIST / "index.html").is_file():

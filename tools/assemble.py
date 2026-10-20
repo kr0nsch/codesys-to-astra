@@ -30,7 +30,6 @@ sys.path.insert(0, os.path.join(TOOLS_DIR, "codesys"))
 sys.path.insert(0, TOOLS_DIR)
 
 import st_flavors as F  # noqa: E402
-
 import stlayout as L  # noqa: E402
 
 FLAVOR_IEC = "iec"

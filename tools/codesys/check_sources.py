@@ -35,10 +35,9 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 import os
 
+import cds_common as C
 import import_sources as I
 import make_library as ML
-
-import cds_common as C
 import stlayout as L
 
 MYPY = False

@@ -8,10 +8,10 @@ import shutil
 import subprocess
 from pathlib import Path
 
-import assemble
 import pytest
-import run_iec_checker as R
 
+import assemble
+import run_iec_checker as R
 from conftest import LOWERING, SAMPLE, SOURCEMAP, SOURCEMAP_CP8, MakeTree, requires_iec_checker, sourcemap_lines
 
 ALLOW_SAMPLE = """

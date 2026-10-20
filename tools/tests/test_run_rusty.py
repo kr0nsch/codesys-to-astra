@@ -8,8 +8,8 @@ import subprocess
 from pathlib import Path
 
 import pytest
-import run_rusty
 
+import run_rusty
 from conftest import MakeTree, requires_rusty
 
 
